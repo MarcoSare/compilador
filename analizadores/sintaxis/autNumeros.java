@@ -1,28 +1,25 @@
+package analizadores.sintaxis;
 
-
-import java.util.Scanner;
 
 public class autNumeros{
     String cadena;
     int position=0;
     boolean acept = false;
-    Scanner scr = new Scanner(System.in);
-    public static void main(String[] args) {
-        autNumeros o = new autNumeros();
-        o.cadena = o.scr.nextLine();
-        o.start();
+
+    public autNumeros(String cadena){
+        this.cadena = cadena;
     }
 
-    void start(){
+    public boolean start(){
         if(cadena.length()>0)
         q0(cadena.charAt(0));
         if(acept)
-        System.out.println("ENTERO");
+        return true;
         else
-        System.out.println("ERROR");
+        return false;
     }
 
-    void q0(char c){
+     void q0(char c){
         if(c >=49 && c<=57){
             position++;
                 if(cadena.length()>position)
