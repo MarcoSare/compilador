@@ -9,6 +9,8 @@ import javax.swing.filechooser.*;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
+import tblSimbolos.simbolo;
+import tblSimbolos.tblSimbolo;
 
 public class IntMain extends JFrame implements ActionListener { // Extension de Interfaz y Eventos
 
@@ -25,7 +27,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     JMenu m1 = new JMenu("Archivo");
     JMenu m2 = new JMenu("Equipo3");
-
+    tblSimbolo tablaSimbolos = new tblSimbolo();
     /* 
     public static void main(String args[]) { // Ejecutable
         main obj = new main();
@@ -129,6 +131,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             }
 
         } else if(click == compilar){
+            tablaSimbolos = new tblSimbolo();
             JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
@@ -146,18 +149,29 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         String[] s = t.getListTokens(lineas[i]);
                         text +=(i+1)+": ";
                         for(int j=0;s.length>j;j++){
-                            text+=  s[j] +" ";
-                            
+                            String[] d =  s[j].split(","); 
+                            tablaSimbolos.m_agreSimbolo(new simbolo(d));
+                            text+= d[0] +" ";
                         }
                         text+= "\n";
                     }
                     
                 ta2.setText(text);
+                mostrarTabla();
+
             }
             else 
             ta2.setText("Caracteres indifidos linea: " + li);
            
         }
 
+    }
+    void mostrarTabla(){
+        System.out.println("id      numToken            Token           Descripcion");
+        System.out.println("---------------------------------------------------------");
+        for(int i=0;tablaSimbolos.tamanio()>i;i++){
+            simbolo row = tablaSimbolos.getSimbolo(i);
+            System.out.println((i+1)+ "     "+row.getId()+"         "+ row.getToken()+"         "+row.getDescripcion());
+        }
     }
 }
