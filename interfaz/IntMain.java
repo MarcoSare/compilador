@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
-import javax.swing.JFileChooser;
+
 import javax.swing.filechooser.*;
+import javax.swing.table.DefaultTableModel;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
@@ -21,13 +22,19 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JButton buscar = new JButton("Buscar");
     JTextArea ta = new JTextArea(); // Editor de codigo
     JTextArea ta2 = new JTextArea(); // Editor de codigo
-    
+    DefaultTableModel modelT = new DefaultTableModel(); 
+    JTable tabla = new JTable(modelT); 
 
+   
     JMenuBar mb = new JMenuBar();
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     JMenu m1 = new JMenu("Archivo");
     JMenu m2 = new JMenu("Equipo3");
     tblSimbolo tablaSimbolos = new tblSimbolo();
+                  //DefaultTableModel modelo = new DefaultTableModel();
+               
+
+                
     /* 
     public static void main(String args[]) { // Ejecutable
         main obj = new main();
@@ -35,6 +42,12 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     }*/
     
     public void initGui(){
+        modelT.addColumn("Id");
+        modelT.addColumn("No. Token");
+        modelT.addColumn("Token");
+        modelT.addColumn("Descripcion");
+        modelT.addColumn("Valor");
+
         ta2.setText("\n \n \n");
         // Configuracion del Frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,13 +91,14 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         JScrollPane spr = new JScrollPane(ta2); // Scroll del editor
         spr.setBounds(10,50,400,300);
         add(spr);
+       
 
         // Se agregan los componentes al Frame en la posicion adecuada
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         //frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, sp);
         frame.getContentPane().add(BorderLayout.SOUTH, spr);
-
+        frame.getContentPane().add(BorderLayout.WEST,new JScrollPane(tabla));
 
         // Acciones de click para los botones
         compilar.addActionListener(this);
@@ -157,7 +171,11 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }
                     
                 ta2.setText(text);
-                mostrarTabla();
+                Object[] r = mostrarTabla();
+
+              
+
+                 
 
             }
             else 
@@ -166,12 +184,15 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         }
 
     }
-    void mostrarTabla(){
-        System.out.println("id      numToken            Token           Descripcion");
+    Object[] mostrarTabla(){
+        System.out.println("id      numToken            Token           Descripcion                 valor");
         System.out.println("---------------------------------------------------------");
+        Object[] r = new simbolo[tablaSimbolos.tamanio()];
         for(int i=0;tablaSimbolos.tamanio()>i;i++){
             simbolo row = tablaSimbolos.getSimbolo(i);
+            modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),0});
             System.out.println((i+1)+ "     "+row.getId()+"         "+ row.getToken()+"         "+row.getDescripcion());
         }
+        return r;
     }
 }
