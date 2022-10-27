@@ -30,4 +30,8 @@ public class tblSimbolo {
     public int tamanio (){
         return simbolos.size();
     }
+
+    public void limpTabla(){
+        simbolos = new ArrayList<>();
+    }
 }
