@@ -3,12 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class lexemas {
-    /*
-    String[] operAritmeticos = {"+", "-", "*", "/", "%"};
-    String[] operlogicos = {"&&", "||", "!"};
-    String[] operComparativos = {"==", "!=", ">","<",">=", "<="};
-    String[] operAsignacion={"="};
-  */
+  
+  /*String[] operAritmeticos = {"+", "-", "*", "/", "%"};
+  String[] operlogicos = {"&&", "||", "!"};
+  String[] operComparativos = {"==", "!=", ">","<",">=", "<="};
+  String[] operAsignacion={"="};*/
     
    String[] getLexemas(String linea){
     List<String> listLexemas = new ArrayList<String>();
@@ -18,11 +17,4 @@ public class lexemas {
         listLexemas.add(a);
     return listLexemas.toArray(new String[0]);
    }
-
-   
-
-
-
-
-
 }

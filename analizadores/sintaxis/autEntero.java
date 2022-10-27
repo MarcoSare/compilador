@@ -2,7 +2,7 @@ package analizadores.sintaxis;
 
 public class autEntero {
     /*String[] simbolos;
-    /int position=0;
+    int position = 0;
     boolean acept = false;
 
     public autEntero(String[] simbolos){

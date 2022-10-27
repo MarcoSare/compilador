@@ -1,15 +1,12 @@
 package interfaz;
 
-import javax.lang.model.element.Element;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
 import java.awt.event.*;
 
 import javax.swing.filechooser.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.ImageView;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
@@ -75,8 +72,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         ta2.setText("\n \n \n");
         // Configuracion del Frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Pantalla Completa
-        frame.setSize(700, 500);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Pantalla Completa
+        frame.setSize(800, 500);
         frame.setLocationRelativeTo(null); // Pantalla centrada
 
         // Agregacion de componentes a los menus
@@ -200,7 +197,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
 
         } else if(click == compilar || click == menuItem12){
             tablaSimbolos = new tblSimbolo();
-            JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+            System.out.println("Compilando...");
+            //JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
             //System.out.println("l " + lineas.length);
@@ -334,8 +332,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         Object[] r = new simbolo[tablaSimbolos.tamanio()];
         for(int i=0;tablaSimbolos.tamanio()>i;i++){
             simbolo row = tablaSimbolos.getSimbolo(i);
-            modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),0});
-            System.out.println((i+1)+ "     "+row.getId()+"         "+ row.getToken()+"         "+row.getDescripcion());
+            modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),row.getToken()});
+            System.out.println((i+1)+ "     "+row.getId()+"         "+ row.getToken()+"         "+row.getDescripcion()+"         "+row.getToken());
         }
         return r;
     }
@@ -344,27 +342,28 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     private static JDialog createDialogAcerca(JFrame frame){
         String titulo, text;
         titulo = "Acerca de";
-        text = "<html><body>" +
+        
+        text = "<html><body style='text-align: center'>" +
                "    <div>"+
                "        <div class='col-md-12' style='display: flex; align-items: center; justify-content: center;'>" +
-               "            <img src='recursos/imagenes/logotecnm.png'/>" +
-               "            <img src='DEFAULT' height:300 width:300/>" +
+               "            <img width='80' height='100' src='https://sg.com.mx/sites/default/files/2018-04/LogoITCelaya.png'/>" +
+               "            <!--<img src='../recursos/imagenes/itc.png'/>-->" +
                "        </div>" +
                "        <div style='margin-top: 10px'>" +
-               "            <label>Tecnológico Nacional de México en Celaya</label> <br>" +
-               "            <label>Lenguajes y Automatas ll</label> <br><br>" +
-               "            <label>VERSION: 1.00</label> <br><br>" +
+               "            <label>~ Tecnológico Nacional de México en Celaya ~</label> <br>" +
+               "            <label> Lenguajes y Automatas ll</label> <br><br>" +
+               "            <label> VERSION: 1.00</label> <br><br>" +
                "            <label style=\"font-family: 'Roboto Medium', sans-serif; font-size:20px;\"> EQUIPO 3 </label> <br>" +
-               "            <label>INTEGRANTES: </label> <br>" +
+               "            <label> INTEGRANTES: </label> <br>" +
                "            <label>- Garcia Ramirez Luis David </label> <br>" +
                "            <label>- Perez Cabrera Jose Eduardo </label> <br>" +
-               "            <label>- Ramirez Garcia Luis David </label> <br>" +
+               "            <label>- Ramirez Garcia Marco Isaias </label> <br>" +
                "        </div>" +
                "    </div>" +
                "</body></html> ";
 
         JDialog modal = new JDialog(frame, titulo, Dialog.ModalityType.DOCUMENT_MODAL);
-        modal.setBounds(0,0,400,270);
+        modal.setBounds(0,0,335,300);
         modal.setLocationRelativeTo(frame);
 
         Container container = modal.getContentPane();

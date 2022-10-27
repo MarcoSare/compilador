@@ -1,8 +1,8 @@
 package tblSimbolos;
-
 import java.util.ArrayList;
 
 public class tblSimbolo {
+
     ArrayList <simbolo> simbolos;
 
     public tblSimbolo(){
@@ -16,9 +16,8 @@ public class tblSimbolo {
     public boolean m_buscSimbolo(String p_nombre){
         int v_cont;
         for(v_cont = 0; v_cont < simbolos.size(); v_cont++){
-            if (simbolos.get(v_cont).nombre.equals(p_nombre)){
+            if (simbolos.get(v_cont).nombre.equals(p_nombre))
                 return true;
-            }
         }
         return false;
     }

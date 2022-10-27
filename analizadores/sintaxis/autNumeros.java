@@ -1,9 +1,9 @@
 package analizadores.sintaxis;
 
-
 public class autNumeros{
+
     String cadena;
-    int position=0;
+    int position = 0;
     boolean acept = false;
 
     public autNumeros(String cadena){
@@ -11,33 +11,31 @@ public class autNumeros{
     }
 
     public boolean start(){
-        if(cadena.length()>0)
-        q0(cadena.charAt(0));
+        if(cadena.length() > 0)
+            q0(cadena.charAt(0));
         if(acept)
-        return true;
+            return true;
         else
-        return false;
+            return false;
     }
 
-     void q0(char c){
-        if(c >=49 && c<=57){
-            position++;
-                if(cadena.length()>position)
+    void q0(char c){
+        if(c >= 48 && c <= 57){
+            position ++;
+            if(cadena.length() > position)
                 q1(cadena.charAt(position));
-                else 
+            else 
                 acept = true;
         }
-        
     }
 
     void q1(char c){
         if(c >=48 && c<=57){
-            position++;
-                if(cadena.length()>position)
+            position ++;
+            if(cadena.length() > position)
                 q1(cadena.charAt(position));
-                else 
+            else 
                 acept = true;
         }
-    
     }
 }
