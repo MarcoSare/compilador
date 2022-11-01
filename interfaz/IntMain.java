@@ -27,6 +27,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JTextField tf = new JTextField(20); // Longitud de 20 caracteres
     JButton compilar = new JButton("Compilar");
     JButton buscar = new JButton("Buscar");
+    JTextArea lines;
+    JScrollPane jsp =new JScrollPane();
     JTextArea ta = new JTextArea(); // Editor de codigo
     JTextArea ta2 = new JTextArea();
     DefaultTableModel modelT = new DefaultTableModel(); 
@@ -80,6 +82,33 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     }*/
     
     public void initGui(){
+        lines = new JTextArea("1");
+        lines.setBackground(Color.LIGHT_GRAY);
+        lines.setEditable(false);
+
+        ta.getDocument().addDocumentListener(new DocumentListener() {
+            public String getText() {
+               int caretPosition = ta.getDocument().getLength();
+               Element root = ta.getDocument().getDefaultRootElement();
+               String text = "1" + System.getProperty("line.separator");
+                  for(int i = 2; i < root.getElementIndex(caretPosition) + 2; i++) {
+                     text += i + System.getProperty("line.separator");
+                  }
+               return text;
+            }
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+               lines.setText(getText());
+            }
+            @Override
+            public void insertUpdate(DocumentEvent de) {
+               lines.setText(getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+               lines.setText(getText());
+            }
+         });
         modelT.addColumn("Id");
         modelT.addColumn("No. Token");
         modelT.addColumn("Token");
@@ -145,14 +174,22 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         panel.add(imaSemaforo1);
 
         // Configuracion del editor de texto
+        // Configuracion del editor de texto
         Font font = new Font("Monospaced", Font.BOLD, 17);
         ta.setFont(font);
+        lines.setFont(font);
         ta.setForeground(Color.CYAN); // Letra
         ta.setBackground(Color.BLACK); // Fondo
         ta.setCaretColor(Color.WHITE);
-        JScrollPane sp = new JScrollPane(ta); // Scroll del editor
-        sp.setBounds(10,50,400,300);
-        add(sp);
+
+        jsp.getViewport().add(ta);
+        jsp.setRowHeaderView(lines);
+        jsp.setBounds(10,50,400,300);
+        add(jsp);
+        
+        //JScrollPane sp = new JScrollPane(ta); // Scroll del editor
+        //sp.setBounds(10,50,400,300);
+        //add(sp);
 
         ta2.setFont(font);
         ta2.setForeground(Color.BLACK); // Letra
@@ -164,7 +201,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         // Se agregan los componentes al Frame en la posicion adecuada
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         //frame.getContentPane().add(BorderLayout.NORTH, mb);
-        frame.getContentPane().add(BorderLayout.CENTER, sp);
+        frame.getContentPane().add(BorderLayout.CENTER, jsp);
         frame.getContentPane().add(BorderLayout.SOUTH, spr);
         frame.getContentPane().add(BorderLayout.WEST,new JScrollPane(tabla));
 
