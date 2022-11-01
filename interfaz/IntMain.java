@@ -1,6 +1,9 @@
 package interfaz;
 
 import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.text.Element;
+
 import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
@@ -10,21 +13,35 @@ import javax.swing.table.DefaultTableModel;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
+import javafx.scene.image.Image;
 import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
 public class IntMain extends JFrame implements ActionListener { // Extension de Interfaz y Eventos
 
     // Declaracion de Atributos para la interfaz
+    String imagen1 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
+    String imagen2 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
+    String imagen3 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
     JFrame frame = new JFrame("Chat Frame");
     JTextField tf = new JTextField(20); // Longitud de 20 caracteres
     JButton compilar = new JButton("Compilar");
     JButton buscar = new JButton("Buscar");
     JTextArea ta = new JTextArea(); // Editor de codigo
-    JTextArea ta2 = new JTextArea(); // Editor de codigo
+    JTextArea ta2 = new JTextArea();
     DefaultTableModel modelT = new DefaultTableModel(); 
     JTable tabla = new JTable(modelT); 
-   
+    JLabel imaSemaforo1 = new JLabel("<html> "+
+                                    "   <div style='margin-left: 20;'><label>&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
+                                    "   </div>" +
+                                    "   <div style='margin-left: 20;'>" +
+                                    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                                    "   </div>" +
+                                    "</html>");
+
     JMenuBar menuBar = new JMenuBar(); //Barra superior del menu
     JMenu menu1 = new JMenu("Archivo");
     JMenu menu2 = new JMenu("Compilador");
@@ -125,6 +142,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         panel.add(tf);
         panel.add(buscar);
         panel.add(compilar);
+        panel.add(imaSemaforo1);
 
         // Configuracion del editor de texto
         Font font = new Font("Monospaced", Font.BOLD, 17);
@@ -198,7 +216,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         } else if(click == compilar || click == menuItem12){
             tablaSimbolos = new tblSimbolo();
             System.out.println("Compilando...");
-            //JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
             //System.out.println("l " + lineas.length);
@@ -207,7 +225,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             for( li=0;lineas.length>li&&bandAlf;li++)
                if(!alfa.validar(lineas[li]))
                bandAlf=false;
-
             if(bandAlf){
                 String text ="";
                 token t = new token();
@@ -224,6 +241,17 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     
                 ta2.setText(text);
                 Object[] r = mostrarTabla();
+                imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
+                imaSemaforo1.setText("<html> "+
+                "   <div style='margin-left: 20;'><label>&nbsp;&nbsp;&nbsp;</label>" +
+                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
+                "   </div>" +
+                "   <div style='margin-left: 20;'>" +
+                "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                "   </div>" +
+                "</html>");
             }
             else 
                 ta2.setText("Caracteres indefidos linea: " + li);
@@ -321,7 +349,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 ex.printStackTrace();
             }
         } else if(click == menuItem41){
-            JDialog modelAcerca = createDialogAcerca(frame);
+            JDialog modelAcerca = createDialogAcerca(frame, panel);
             modelAcerca.setVisible(true);
         }
 
@@ -339,43 +367,51 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     }
 
     //Creacion del modal Acerca de
-    private static JDialog createDialogAcerca(JFrame frame){
-        String titulo, text;
+    private static JDialog createDialogAcerca(JFrame frame, JPanel panel){
+        String titulo, text, imagMarco;
         titulo = "Acerca de";
+        imagMarco = "recursosi/magenes/itc.png";
         
-        text = "<html><body style='text-align: center'>" +
+        text = "<html>"+
+               "<body>" +
                "    <div>"+
-               "        <div class='col-md-12' style='display: flex; align-items: center; justify-content: center;'>" +
-               "            <img width='80' height='100' src='https://sg.com.mx/sites/default/files/2018-04/LogoITCelaya.png'/>" +
-               "            <!--<img src='../recursos/imagenes/itc.png'/>-->" +
+               "        <div style='display: flex; align-items: center; justify-content: center; margin-left: 70px'>" +
+               "            <img width='100' height='100' src='https://sg.com.mx/sites/default/files/2018-04/LogoITCelaya.png'/>" +
                "        </div>" +
-               "        <div style='margin-top: 10px'>" +
+               "        <div style='display: flex; align-items: center; justify-content: center; margin-top: 10px;'>" +
                "            <label>~ Tecnológico Nacional de México en Celaya ~</label> <br>" +
                "            <label> Lenguajes y Automatas ll</label> <br><br>" +
                "            <label> VERSION: 1.00</label> <br><br>" +
                "            <label style=\"font-family: 'Roboto Medium', sans-serif; font-size:20px;\"> EQUIPO 3 </label> <br>" +
                "            <label> INTEGRANTES: </label> <br>" +
-               "            <label>- Garcia Ramirez Luis David </label> <br>" +
-               "            <label>- Perez Cabrera Jose Eduardo </label> <br>" +
-               "            <label>- Ramirez Garcia Marco Isaias </label> <br>" +
+               "        </div>" +
+               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "                <img width='80' height='80' src='https://i.ibb.co/QQvY9Rq/Foto-Cromo.jpg' style='margin-left: 70px;'/> <br>" +
+               "                <label>- Garcia Ramirez Luis David </label>" +
+               "        </div>" +
+               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "                <img width='80' height='80' src='https://i.ibb.co/fFvSMh2/Foto-Edu.png'/> <br>" +
+               "                <label>- Perez Cabrera Jose Eduardo </label>" +
+               "        </div>" +
+               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "                <img width='80' height='80' src='https://i.ibb.co/2vfvztF/Foto-Marco.jpg'/> <br>" +
+               "                <label>- Ramirez Garcia Marco Isaias </label>" +
                "        </div>" +
                "    </div>" +
                "</body></html> ";
 
         JDialog modal = new JDialog(frame, titulo, Dialog.ModalityType.DOCUMENT_MODAL);
-        modal.setBounds(0,0,335,300);
+        modal.setBounds(0,0,300,300);
         modal.setLocationRelativeTo(frame);
 
         Container container = modal.getContentPane();
         container.setLayout(new BorderLayout());
-   
         container.add(new JLabel(text));
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        JScrollPane scrollPane = new JScrollPane();
+        modal.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setViewportView(new JLabel(text));
 
-        container.add(panel, BorderLayout.SOUTH);
-        
         return modal;
     }
 
@@ -464,4 +500,5 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             ex.printStackTrace();
         }
     }
+
 }
