@@ -2,12 +2,13 @@ package tblSimbolos;
 
 public class simbolo {
 
-    public String tipoSimbolo, nombre, tipo, tamanio, direccion, valor, id, descripcion;
+    public String tipoSimbolo, id, descripcion, valor, nombre, tipo, tamanio, direccion;
 
     public simbolo(String[] simbolo){
         tipoSimbolo = simbolo[0];
         id = simbolo[1];
         descripcion = simbolo[2];
+        valor = simbolo[3];
     }
 
     public String getToken(){
@@ -20,5 +21,9 @@ public class simbolo {
 
     public String getDescripcion(){
         return this.descripcion;
+    }
+
+    public String getValor(){
+        return this.valor;
     }
 }

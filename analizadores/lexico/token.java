@@ -16,33 +16,33 @@ public class token {
 
     String getToken(String lexema){
         if(lexema.equals("si"))
-            return "SI,1,Palabra reservada";
+            return "SI,1,Palabra reservada,"+lexema;
         if(lexema.equals("sino"))
-            return "SINO,2,Palabra reservada";    
+            return "SINO,2,Palabra reservada,"+lexema;    
         if(lexema.equals("mientras"))
-            return "MIENTRAS,3,Palabra reservada";    
+            return "MIENTRAS,3,Palabra reservada,"+lexema;    
         if(lexema.equals("hacer"))
-            return "HACER,4,Palabra reservada";    
+            return "HACER,4,Palabra reservada,"+lexema;    
         if(lexema.equals("entero"))
-            return "ENTERO,11,Palabra reservada";    
+            return "ENTERO,11,Palabra reservada,"+lexema;    
         if(lexema.equals("flotante"))
-            return "FLOTANTE,12,Palabra reservada";    
+            return "FLOTANTE,12,Palabra reservada,"+lexema;    
         if(lexema.equals("texto"))
-            return "TEXTO,13,Palabra reservada";    
+            return "TEXTO,13,Palabra reservada,"+lexema;    
         if(esOpArtimetico(lexema))
-            return "OPARITMETICO,21,Operador aritmetico";    
+            return "OPARITMETICO,21,Operador aritmetico,"+lexema;    
         if(esOpLogico(lexema))
-            return "OPLOGICO,31,Operador lógico";       
+            return "OPLOGICO,31,Operador lógico,"+lexema;       
         if(esOpComparacion(lexema))
-            return "OPCOMPARACION,41,Operador de comparación";    
+            return "OPCOMPARACION,41,Operador de comparación,"+lexema;    
         if(lexema.equals("="))
-            return "OPASIGNACION,51,Operador de asignación";    
+            return "OPASIGNACION,51,Operador de asignación,"+lexema;    
         if(lexema.equals(";"))
-            return "DELIMITADOR,60,delimitador";
+            return "DELIMITADOR,60,delimitador,"+lexema;
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;
-        return "TOKEN NO ENCONTRADO,-1,Token no especificado";
+        return "TOKEN NO ENCONTRADO,-1,Token no especificado,"+lexema;
     }
     
     boolean esOpArtimetico(String lexema){
@@ -67,10 +67,10 @@ public class token {
     String buscarToken(String lexema){
         AutCadenas = new autCadenas(lexema);
         if(AutCadenas.start())
-            return "CADENA,70,Tipo de dato Cadena";
+            return "CADENA,70,Tipo de dato Cadena,"+lexema;
         AutNumeros = new autNumeros(lexema);
         if(AutNumeros.start())
-            return "NUMERO,71,Tipo de dato Numero";
+            return "NUMERO,71,Tipo de dato Numero,"+lexema;
         return null;
     }
 

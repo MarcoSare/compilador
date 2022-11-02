@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
-import javafx.scene.image.Image;
 import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
@@ -34,9 +33,9 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     DefaultTableModel modelT = new DefaultTableModel(); 
     JTable tabla = new JTable(modelT); 
     JLabel imaSemaforo1 = new JLabel("<html> "+
-                                    "   <div style='margin-left: 20;'><label>&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
                                     "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
                                     "   </div>" +
                                     "   <div style='margin-left: 20;'>" +
@@ -72,15 +71,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     tblSimbolo tablaSimbolos = new tblSimbolo();
 
     String url = ""; //URL para cuando se abra un archivo
-
-    //DefaultTableModel modelo = new DefaultTableModel();
-                
-    /* 
-    public static void main(String args[]) { // Ejecutable
-        main obj = new main();
-        obj.initGui();
-    }*/
     
+    // Inicializacion de la interfaz grafica
     public void initGui(){
         lines = new JTextArea("1");
         lines.setBackground(Color.LIGHT_GRAY);
@@ -212,14 +204,14 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         frame.setVisible(true); // Se muestra la ventana
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) { 
+    // Acciones para los botones
+    @Override public void actionPerformed(ActionEvent e) { 
         
         // Control de Eventos (clicks del usuario)
         Object click = e.getSource();
 
+        // Interfaz de la ventana desplegable para seleccionar un archivo
         if (click == buscar || click == menuItem11) {
-            // Interfaz de la ventana desplegable para seleccionar un archivo
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
             jfc.setDialogTitle("Seleccionar codigo fuente");
             jfc.setAcceptAllFileFilterUsed(false); // Limitar extensiones de los archivos
@@ -250,10 +242,11 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 }
             }
 
+        // Boton de compilar
         } else if(click == compilar || click == menuItem12){
             tablaSimbolos = new tblSimbolo();
             System.out.println("Compilando...");
-            JOptionPane.showMessageDialog(null, "Analisis...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
             //System.out.println("l " + lineas.length);
@@ -280,9 +273,9 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 Object[] r = mostrarTabla();
                 imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
                 imaSemaforo1.setText("<html> "+
-                "   <div style='margin-left: 20;'><label>&nbsp;&nbsp;&nbsp;</label>" +
-                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
                 "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
                 "   </div>" +
                 "   <div style='margin-left: 20;'>" +
@@ -391,14 +384,16 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         }
 
     }
+    
+    //Regresa e imprime la tabla de simbolos
     Object[] mostrarTabla(){
-        System.out.println("id      numToken            Token           Descripcion                 valor");
+        System.out.println("id      numToken         Token        Descripcion          valor");
         System.out.println("---------------------------------------------------------");
         Object[] r = new simbolo[tablaSimbolos.tamanio()];
         for(int i=0;tablaSimbolos.tamanio()>i;i++){
             simbolo row = tablaSimbolos.getSimbolo(i);
-            modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),row.getToken()});
-            System.out.println((i+1)+ "     "+row.getId()+"         "+ row.getToken()+"         "+row.getDescripcion()+"         "+row.getToken());
+            modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),row.getValor()});
+            System.out.println((i+1)+ "   "+row.getId()+"     "+ row.getToken()+"     "+row.getDescripcion()+"         "+row.getValor());
         }
         return r;
     }
@@ -456,7 +451,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     private int createDialogLimpiar(JFrame frame, String p_areaLimpiar){
         int input;
         input = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres limpiar " + p_areaLimpiar + "?", "Confirmacion para limpiar", JOptionPane.YES_NO_OPTION);
-        
         return input;
     }
 
@@ -484,7 +478,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     private int createDialogEliminar(JFrame frame, String p_archivo){
         int input;
         input = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres eliminar el archivo " + p_archivo + "?", "Confirmacion para eliminar", JOptionPane.YES_NO_OPTION);
-        
         return input;
     }
 
