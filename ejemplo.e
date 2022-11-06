@@ -1,13 +1,19 @@
-si 5 >= 4
-entero = 1 ;
-sino
-entero = 0 ;
+principal {
 
-mientras "Hola" == "ola" && 5 < 10
-texto = "Hola" ;
+si ( 5 >= 4 ) {
+ entero = 1 ;
+} sino {
+ entero = 0 ;
+}
 
-hacer
-texto = "cadena" + "aux" ;
-mientras 5 > 4
+mientras ( ( "Hola" == "ola" ) && ( 5 < 10 ) ) {
+ texto = "Hola" ;
+}
+
+hacer{
+ texto = "cadena" + "aux" ;
+} mientras ( 5 > 4 ) ;
+
+}
 
 error

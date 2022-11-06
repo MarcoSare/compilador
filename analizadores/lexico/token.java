@@ -8,11 +8,14 @@ public class token {
     autNumeros AutNumeros;
     lexemas lex;
     //String[] retorno;
-    String[] vocabulario= {"SI","SINO","MIENTRAS","HACER",
-                            "ENTERO","FLOTANTE","TEXTO",
-                            "OPARITMETICO","OPLOGICO",
-                            "OPCOMPARACION","OPASIGNACION",
-                            "DELIMITADOR", "IDENTIFICADOR"};
+    String[] vocabulario = {"PRINCIPAL",
+                        "SI","SINO","MIENTRAS","HACER",
+                        "ENTERO","FLOTANTE","TEXTO",
+                        "OPARITMETICO","OPLOGICO",
+                        "OPCOMPARACION","OPASIGNACION",
+                        "BLOQUEAPERTURA","BLOQUECIERRE",
+                        "PARENTESISAPERTURA","PARENTESISCIERRE",
+                        "DELIMITADOR", "IDENTIFICADOR"};
 
     String getToken(String lexema){
         if(lexema.equals("si"))
@@ -28,7 +31,9 @@ public class token {
         if(lexema.equals("flotante"))
             return "FLOTANTE,12,Palabra reservada,"+lexema;    
         if(lexema.equals("texto"))
-            return "TEXTO,13,Palabra reservada,"+lexema;    
+            return "TEXTO,13,Palabra reservada,"+lexema;
+        if(lexema.equals("principal"))
+            return "PRINCIPAL,15,Palabra reservada,"+lexema;   
         if(esOpArtimetico(lexema))
             return "OPARITMETICO,21,Operador aritmetico,"+lexema;    
         if(esOpLogico(lexema))
@@ -39,6 +44,14 @@ public class token {
             return "OPASIGNACION,51,Operador de asignación,"+lexema;    
         if(lexema.equals(";"))
             return "DELIMITADOR,60,delimitador,"+lexema;
+        if(lexema.equals("{"))
+            return "BLOQUEAPERTURA,61,bloqueapertura,"+lexema;
+        if(lexema.equals("}"))
+            return "BLOQUECIERRE,62,bloquecierre,"+lexema;
+        if(lexema.equals("("))
+            return "PARENTESISAPERTURA,63,parentesisapertura,"+lexema;
+        if(lexema.equals(")"))
+            return "PARENTESISCIERRE,64,parentesiscierre,"+lexema;
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;

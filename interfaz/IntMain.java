@@ -187,7 +187,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         ta2.setForeground(Color.BLACK); // Letra
         ta2.setBackground(Color.white); // Fondo
         JScrollPane spr = new JScrollPane(ta2); // Scroll del editor
-        spr.setBounds(10,50,400,300);
+        //spr.setBounds(10,50,400,300);
         add(spr);
        
         // Se agregan los componentes al Frame en la posicion adecuada
