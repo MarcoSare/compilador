@@ -2,11 +2,11 @@ package analizadores.sintaxis;
 /* Automata:
      * hacer
      * { Delimitador Apertura
-     * CONTENIDO
+     *  CONTENIDO
      * } Delimitador Cierre
      * mientras
      * (
-     * Decision (Expresion Booleana)
+     *  DECISION (Expresion[es] Booleana[s])
      * )
      * ; (Delimitador Cierre)
 */

@@ -249,7 +249,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         } else if(click == compilar || click == menuItem12){
             tablaSimbolos = new tblSimbolo();
             System.out.println("Compilando...");
-            JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
             //System.out.println("l " + lineas.length);
@@ -259,8 +258,18 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                if(!alfa.validar(lineas[li]))
                bandAlf=false;
             if(bandAlf){
-                String text ="";
                 token t = new token();
+                //JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+                            
+                // CLASIFICADOR DE LINEAS
+                clasificadorLinea cl = new clasificadorLinea(lineas, t);
+                cl.analisisSintactico();
+                //System.out.println(t.variables);
+                
+                //JOptionPane.showMessageDialog(null, "Análisis Sintáctico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+                
+                // Tabla de Simbolos
+                String text ="";
                     for(int i=0;lineas.length>i;i++){
                         String[] s = t.getListTokens(lineas[i]);
                         text +=(i+1)+": ";
@@ -275,7 +284,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 ta2.setText(text);
                 Object[] r = mostrarTabla();
 
-
                 imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
                 imaSemaforo1.setText("<html> "+
                 "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
@@ -288,13 +296,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 "   </div>" +
                 "</html>");
 
-                //
-
-                // CLASIFICADOR DE LINEAS
-                JOptionPane.showMessageDialog(null, "Análisis Sintáctico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
-                clasificadorLinea cl = new clasificadorLinea(lineas);
-                cl.analisisSintactico();
-                //
             }
             else 
                 ta2.setText("Caracteres indefidos linea: " + li);
@@ -400,7 +401,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     
     //Regresa e imprime la tabla de simbolos
     Object[] mostrarTabla(){
-        System.out.println("id      numToken         Token        Descripcion          valor");
+        System.out.println("\nid      numToken         Token        Descripcion          valor");
         System.out.println("---------------------------------------------------------");
         Object[] r = new simbolo[tablaSimbolos.tamanio()];
         for(int i=0;tablaSimbolos.tamanio()>i;i++){

@@ -1,9 +1,11 @@
 package analizadores.lexico;
+import java.util.ArrayList;
+
 import analizadores.sintaxis.autCadenas;
 import analizadores.sintaxis.autNumeros;
 
 public class token {
-    
+    public ArrayList<String> variables = new ArrayList<>();
     autCadenas AutCadenas;
     autNumeros AutNumeros;
     lexemas lex;
@@ -52,10 +54,9 @@ public class token {
             return "PARENTESISAPERTURA,63,Parentesis apertura,"+lexema;
         if(lexema.equals(")"))
             return "PARENTESISCIERRE,64,Parentesis cierre,"+lexema;
-        //
-        // Cadena Empieza y termina con "
-        // Numero esta formado de valores enteros
-        //
+        if(variables.contains(lexema)){
+            return "VARIABLE,75,Variable,"+lexema;
+        }
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;

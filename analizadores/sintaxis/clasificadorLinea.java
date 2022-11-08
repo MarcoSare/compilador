@@ -1,11 +1,15 @@
 package analizadores.sintaxis;
+import analizadores.lexico.token;
+
 /*
  * Clasifica el codigo por lineas
 */
 public class clasificadorLinea {
     String[] codigo;
-    public clasificadorLinea(String[] lineas){
+    token t;
+    public clasificadorLinea(String[] lineas, token tk){
         codigo = lineas;
+        t = tk;
     }
     public void analisisSintactico(){
         for (String linea : codigo) {
@@ -27,7 +31,7 @@ public class clasificadorLinea {
                 }else if(datos[0].equals("hacer")){
 
                 }else if((datos[0].equals("entero") || (datos[0].equals("texto")))){
-                    erVariables erv = new erVariables(datos);
+                    erVariables erv = new erVariables(datos, t);
                     erv.valiER();
                 }else if(datos[0].equals("}")){
 

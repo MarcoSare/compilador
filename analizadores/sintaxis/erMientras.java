@@ -2,10 +2,10 @@ package analizadores.sintaxis;
 /* Automata:
      * mientras
      * (
-     * Decision (Expresion Booleana)
+     *  DECISION (Expresion[es] Booleana[s])
      * )
      * { Delimitador Apertura
-     * CONTENIDO
+     *  CONTENIDO
      * } Delimitador Cierre
 */
 public class erMientras {
