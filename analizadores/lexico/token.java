@@ -8,16 +8,16 @@ public class token {
     autNumeros AutNumeros;
     lexemas lex;
     //String[] retorno;
-    String[] vocabulario = {"PRINCIPAL",
+    /*String[] vocabulario = {"PRINCIPAL",
                         "SI","SINO","MIENTRAS","HACER",
                         "ENTERO","FLOTANTE","TEXTO",
                         "OPARITMETICO","OPLOGICO",
                         "OPCOMPARACION","OPASIGNACION",
                         "BLOQUEAPERTURA","BLOQUECIERRE",
                         "PARENTESISAPERTURA","PARENTESISCIERRE",
-                        "DELIMITADOR", "IDENTIFICADOR"};
+                        "DELIMITADOR", "IDENTIFICADOR"};*/
 
-    String getToken(String lexema){
+    public String getToken(String lexema){
         if(lexema.equals("si"))
             return "SI,1,Palabra reservada,"+lexema;
         if(lexema.equals("sino"))
@@ -43,15 +43,19 @@ public class token {
         if(lexema.equals("="))
             return "OPASIGNACION,51,Operador de asignación,"+lexema;    
         if(lexema.equals(";"))
-            return "DELIMITADOR,60,delimitador,"+lexema;
+            return "DELIMITADOR,60,Delimitador,"+lexema;
         if(lexema.equals("{"))
-            return "BLOQUEAPERTURA,61,bloqueapertura,"+lexema;
+            return "BLOQUEAPERTURA,61,Bloque apertura,"+lexema;
         if(lexema.equals("}"))
-            return "BLOQUECIERRE,62,bloquecierre,"+lexema;
+            return "BLOQUECIERRE,62,Bloque cierre,"+lexema;
         if(lexema.equals("("))
-            return "PARENTESISAPERTURA,63,parentesisapertura,"+lexema;
+            return "PARENTESISAPERTURA,63,Parentesis apertura,"+lexema;
         if(lexema.equals(")"))
-            return "PARENTESISCIERRE,64,parentesiscierre,"+lexema;
+            return "PARENTESISCIERRE,64,Parentesis cierre,"+lexema;
+        //
+        // Cadena Empieza y termina con "
+        // Numero esta formado de valores enteros
+        //
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;
@@ -87,7 +91,7 @@ public class token {
         return null;
     }
 
-    public  String[] getListTokens(String linea){
+    public String[] getListTokens(String linea){
         lex = new lexemas();
         String[] lexemas = lex.getLexemas(linea);
         String[] tokens = new String[lexemas.length];

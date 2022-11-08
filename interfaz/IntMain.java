@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
+
+import analizadores.sintaxis.clasificadorLinea;
+
 import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
@@ -250,7 +253,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
             //System.out.println("l " + lineas.length);
-            String[]lineas = ta.getText().split("\n");
+            String[] lineas = ta.getText().split("\n");
             int li;
             for( li=0;lineas.length>li&&bandAlf;li++)
                if(!alfa.validar(lineas[li]))
@@ -262,7 +265,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         String[] s = t.getListTokens(lineas[i]);
                         text +=(i+1)+": ";
                         for(int j=0;s.length>j;j++){
-                            String[] d =  s[j].split(","); 
+                            String[] d =  s[j].split(",");
                             tablaSimbolos.m_agreSimbolo(new simbolo(d));
                             text+= d[0] +" ";
                         }
@@ -271,6 +274,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     
                 ta2.setText(text);
                 Object[] r = mostrarTabla();
+
+
                 imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
                 imaSemaforo1.setText("<html> "+
                 "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
@@ -282,6 +287,14 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
                 "   </div>" +
                 "</html>");
+
+                //
+
+                // CLASIFICADOR DE LINEAS
+                JOptionPane.showMessageDialog(null, "Análisis Sintáctico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
+                clasificadorLinea cl = new clasificadorLinea(lineas);
+                cl.analisisSintactico();
+                //
             }
             else 
                 ta2.setText("Caracteres indefidos linea: " + li);
@@ -400,9 +413,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
 
     //Creacion del modal Acerca de
     private static JDialog createDialogAcerca(JFrame frame, JPanel panel){
-        String titulo, text, imagMarco;
+        String titulo, text;
         titulo = "Acerca de";
-        imagMarco = "recursosi/magenes/itc.png";
         
         text = "<html>"+
                "<body>" +

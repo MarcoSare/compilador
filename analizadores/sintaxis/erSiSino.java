@@ -2,22 +2,20 @@ package analizadores.sintaxis;
 /* Automata:
     * si
     * (
-    *  DECISION (Expresion[es] Booleana)
+    *  DECISION (Expresion[es] Booleana[s])
     * )
     * { (Delimitador Apertura)
     *  CONTENIDO 
     * } Delimitador Cierre
-    
-    *OPCIONAL*
-    
+        
     * sino
-    * Delimitador Apertura
-    * { CONTENIDO }
-    * Delimitador Cierre
+    * { (Delimitador Apertura)
+    *  CONTENIDO
+    * } (Delimitador Cierre)
 */
 public class erSiSino {
     
-    public void erSiSino(){
+    public erSiSino(){
 
     }
 }

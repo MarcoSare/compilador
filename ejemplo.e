@@ -1,19 +1,19 @@
 principal {
 
 si ( 5 >= 4 ) {
- entero = 1 ;
+ entero a = 1 ;
 } sino {
- entero = 0 ;
+ entero a = 0 ;
 }
 
 mientras ( ( "Hola" == "ola" ) && ( 5 < 10 ) ) {
- texto = "Hola" ;
+ texto b = "Hola" ;
 }
 
-hacer{
- texto = "cadena" + "aux" ;
+hacer {
+ texto c = "Aloh" ;
 } mientras ( 5 > 4 ) ;
 
-}
-
 error
+
+}
