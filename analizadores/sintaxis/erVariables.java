@@ -40,7 +40,7 @@ public class erVariables {
             if((numt > 10) && (numt < 15) ){
                 b1 = true;
             }else{
-                System.out.println("ERROR, No se renonoce el Tipo de dato");
+                System.out.println("ERROR, NO SE RECONOCE EL TIPO DE DATO");
             }
 
             if(b1){
@@ -48,7 +48,6 @@ public class erVariables {
                 String nv = t.getToken(linea[1]);
                 String[] descnv = nv.split(",");
                 if(descnv[2].equals("Token no especificado")){ // No es un token existente
-                    t.variables.add(linea[1]);
                     b2 = true;
                     //System.out.println(t.variables);
                 }else{
@@ -105,6 +104,7 @@ public class erVariables {
             System.out.println("Delimitador : "+linea[4]+" -> "+b5); 
 
             if(b1 && b2 && b3 && b4 && b5){
+                t.variables.add(linea[1]);
                 System.out.println("VARIABLE DECLARADA");
             }else{
                 System.out.println("NO FUE POSIBLE DECLARAR LA VARIABLE");
@@ -114,7 +114,7 @@ public class erVariables {
         }/*else if(linea.length == 4){
             // Variables ya declaradas
         }*/else{
-            System.out.println("ERROR, LA ER NO CUMPLE CON LOS COMPONENTES NECESARIOS");
+            System.out.println("ERROR, LA ER NO CUMPLE CON LOS COMPONENTES MINIMOS NECESARIOS");
         }
     }
 }
