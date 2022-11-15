@@ -1,5 +1,7 @@
 package analizadores.sintaxis;
 import analizadores.lexico.token;
+import errores.pilaError;
+import tblSimbolos.tblSimbolo;
 
 /*
  * Clasifica el codigo por lineas
@@ -7,11 +9,16 @@ import analizadores.lexico.token;
 public class clasificadorLinea {
     String[] codigo;
     token t;
-    public clasificadorLinea(String[] lineas, token tk){
+    tblSimbolo TblSimbolo; 
+    pilaError PilaError;
+    public clasificadorLinea(String[] lineas, token tk, tblSimbolo TblSimbolo, pilaError PilaError){
         codigo = lineas;
         t = tk;
+        this.TblSimbolo = TblSimbolo;
+        this.PilaError = PilaError;
     }
     public void analisisSintactico(){
+        int i=1;
         for (String linea : codigo) {
             linea = linea.trim();
             if(!linea.equals("")){
@@ -20,18 +27,21 @@ public class clasificadorLinea {
                 /*for (String dato : datos) {
                     System.out.println("    -> "+dato);
                 }*/
-                if(datos[0].equals("principal")){
+                if(datos[0].equals("principal{")){
 
                 }else if(datos[0].equals("si")){
-
+                    erSiSino e = new erSiSino(TblSimbolo, linea, this.PilaError,i);
+                    e.start();
                 }else if(datos[0].equals("sino")){
+                  
 
                 }else if(datos[0].equals("mientras")){
 
                 }else if(datos[0].equals("hacer")){
 
-                }else if((datos[0].equals("entero") || (datos[0].equals("texto")))){
-                    erVariables erv = new erVariables(datos, t);
+                }else if((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano")) )){
+                    System.out.println("xD");
+                    erVariables erv = new erVariables(datos, t, this.TblSimbolo, this.PilaError, i);
                     erv.valiER();
                 }else if(datos[0].equals("}")){
 
@@ -39,6 +49,8 @@ public class clasificadorLinea {
                     // Validar si es una variable declarada
                 }
             }
+            i++;
+            
         }
     } 
     // Toma de parametro una cadena y la devuelve como un arrelo String separado por espacios

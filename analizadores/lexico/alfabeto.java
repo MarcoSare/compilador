@@ -1,15 +1,5 @@
 package analizadores.lexico;
 public class alfabeto {
-    
-    /*public static void main(String[] args) {
-        alfabeto a = new alfabeto();
-        Scanner sc = new Scanner(System.in);
-        if(a.validar(sc.nextLine()))
-            System.out.println("Correcto");
-        else 
-            System.out.println("Incorrecto");
-    }*/
-
     public boolean validar(String linea){
         int tamanio = linea.length();
         char c;

@@ -1,6 +1,7 @@
 package analizadores.lexico;
 import java.util.ArrayList;
 
+import analizadores.sintaxis.autBooleana;
 import analizadores.sintaxis.autCadenas;
 import analizadores.sintaxis.autNumeros;
 
@@ -8,6 +9,7 @@ public class token {
     public ArrayList<String> variables = new ArrayList<>();
     autCadenas AutCadenas;
     autNumeros AutNumeros;
+    autBooleana AutBooleana;
     lexemas lex;
     //String[] retorno;
     /*String[] vocabulario = {"PRINCIPAL",
@@ -34,6 +36,8 @@ public class token {
             return "FLOTANTE,12,Palabra reservada,"+lexema;    
         if(lexema.equals("texto"))
             return "TEXTO,13,Palabra reservada,"+lexema;
+        if(lexema.equals("booleano"))
+            return "BOOLEANO,14,Palabra reservada,"+lexema; 
         if(lexema.equals("principal"))
             return "PRINCIPAL,15,Palabra reservada,"+lexema;   
         if(esOpArtimetico(lexema))
@@ -54,9 +58,12 @@ public class token {
             return "PARENTESISAPERTURA,63,Parentesis apertura,"+lexema;
         if(lexema.equals(")"))
             return "PARENTESISCIERRE,64,Parentesis cierre,"+lexema;
-        if(variables.contains(lexema)){
+        
+        
+        
+            if(variables.contains(lexema))
             return "VARIABLE,75,Variable,"+lexema;
-        }
+        
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;
@@ -89,6 +96,9 @@ public class token {
         AutNumeros = new autNumeros(lexema);
         if(AutNumeros.start())
             return "NUMERO,71,Tipo de dato Numero,"+lexema;
+        AutBooleana = new autBooleana(lexema);
+        if(AutBooleana.start())
+        return "TDBOOLEANO,72,Tipo de dato booleano,"+lexema;
         return null;
     }
 

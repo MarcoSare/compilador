@@ -15,7 +15,8 @@ import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
 
 import analizadores.sintaxis.clasificadorLinea;
-
+import errores.nodoError;
+import errores.pilaError;
 import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
@@ -72,6 +73,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
 
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     tblSimbolo tablaSimbolos = new tblSimbolo();
+    pilaError PilaError = new pilaError();
 
     String url = ""; //URL para cuando se abra un archivo
     
@@ -80,6 +82,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         lines = new JTextArea("1");
         lines.setBackground(Color.LIGHT_GRAY);
         lines.setEditable(false);
+        ta2.setEditable(false);
 
         ta.getDocument().addDocumentListener(new DocumentListener() {
             public String getText() {
@@ -188,7 +191,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
 
         ta2.setFont(font);
         ta2.setForeground(Color.BLACK); // Letra
-        ta2.setBackground(Color.white); // Fondo
+        ta2.setBackground(Color.BLACK); // Fondo
         JScrollPane spr = new JScrollPane(ta2); // Scroll del editor
         //spr.setBounds(10,50,400,300);
         add(spr);
@@ -247,7 +250,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
 
         // Boton de compilar
         } else if(click == compilar || click == menuItem12){
-            tablaSimbolos = new tblSimbolo();
+            this.PilaError = new pilaError();
+            this.tablaSimbolos = new tblSimbolo();
             System.out.println("Compilando...");
             alfabeto alfa = new alfabeto();
             boolean bandAlf=true;
@@ -262,7 +266,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 //JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
                             
                 // CLASIFICADOR DE LINEAS
-                clasificadorLinea cl = new clasificadorLinea(lineas, t);
+                clasificadorLinea cl = new clasificadorLinea(lineas, t, this.tablaSimbolos, this.PilaError);
                 cl.analisisSintactico();
                 //System.out.println(t.variables);
                 
@@ -270,18 +274,38 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 
                 // Tabla de Simbolos
                 String text ="";
+                /* 
                     for(int i=0;lineas.length>i;i++){
                         String[] s = t.getListTokens(lineas[i]);
                         text +=(i+1)+": ";
                         for(int j=0;s.length>j;j++){
                             String[] d =  s[j].split(",");
-                            tablaSimbolos.m_agreSimbolo(new simbolo(d));
+                            this.tablaSimbolos.m_agreSimbolo(new simbolo(d));
                             text+= d[0] +" ";
                         }
                         text+= "\n";
-                    }
-                    
+                    }*/
+                if(this.PilaError.estaVacia()){
+                    ta2.setForeground(Color.GREEN);
+                    text = "EL programa se ejecuto sin errores";
+                    ta2.setText(text);
+                } 
+                else{
+                    System.out.println("fs");
+                    text = "Errores en tiempo de compilación\n";      
+                    ta2.setForeground(Color.RED); 
+                while(!PilaError.estaVacia()){
+                    Object nodo = PilaError.pop();
+                    String l = ((nodoError) nodo).getLinea();
+                    String D = ((nodoError) nodo).getDescripcion();
+                    String C = ((nodoError) nodo).getCodigo();
+                    text = "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
+                }
                 ta2.setText(text);
+            }
+                    
+                //ta2.setText(text);
+                limpiar();
                 Object[] r = mostrarTabla();
 
                 imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
@@ -410,6 +434,12 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             System.out.println((i+1)+ "   "+row.getId()+"     "+ row.getToken()+"     "+row.getDescripcion()+"         "+row.getValor());
         }
         return r;
+    }
+
+    void limpiar(){
+       int i = modelT.getRowCount();
+       for(int j=0;i>j;j++)
+       modelT.removeRow(0);
     }
 
     //Creacion del modal Acerca de

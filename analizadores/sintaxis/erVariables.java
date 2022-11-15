@@ -1,5 +1,9 @@
 package analizadores.sintaxis;
 import analizadores.lexico.token;
+import errores.nodoError;
+import errores.pilaError;
+import tblSimbolos.simbolo;
+import tblSimbolos.tblSimbolo;
 
 /*
      * De 3 o 5 de longitud el arrreglo
@@ -23,10 +27,17 @@ import analizadores.lexico.token;
  */
 public class erVariables {
     String[] linea;
+    int clinea;
     token t;
-    public erVariables(String[] datos, token tk){ // 4 o 5
+    tblSimbolo TblSimbolo;
+    pilaError PilaError;
+
+    public erVariables(String[] datos, token tk, tblSimbolo TblSimbolo, pilaError PilaError, int clinea){ // 4 o 5
         linea = datos;
         t = tk;
+        this.TblSimbolo = TblSimbolo;
+        this.PilaError = PilaError;
+        this.clinea = clinea;
     }
     public void valiER(){
         System.out.println("");
@@ -41,6 +52,7 @@ public class erVariables {
                 b1 = true;
             }else{
                 System.out.println("ERROR, NO SE RECONOCE EL TIPO DE DATO");
+                PilaError.push(new nodoError(String.valueOf(clinea),"NO SE RECONOCE EL TIPO DE DATO" , "0"));
             }
 
             if(b1){
@@ -52,6 +64,7 @@ public class erVariables {
                     //System.out.println(t.variables);
                 }else{
                     System.out.println("ERROR, LA VARIABLE A DECLARAR YA ES UNA PALABRA RESERVADA");
+                    PilaError.push(new nodoError(String.valueOf(clinea),"LA VARIABLE A DECLARAR YA ES UNA PALABRA RESERVADA" , "0"));
                 }
             }
 
@@ -63,6 +76,7 @@ public class erVariables {
                     b3 = true;
                 }else{
                     System.out.println("ERROR, NO SE AGREGO EL SIMBOLO DE ASIGNACION");
+                    PilaError.push(new nodoError(String.valueOf(clinea),"NO SE AGREGO EL SIMBOLO DE ASIGNACION" , "0"));
                 }
             }
 
@@ -79,9 +93,14 @@ public class erVariables {
                     if(desccv[0].equals("CADENA")){
                         b4 = true;
                     }
+                }else if(desctd[0].equals("BOOLEANO")){
+                    if(desccv[0].equals("TDBOOLEANO")){
+                        b4 = true;
+                    }
                 }
                 if(!b4){
                     System.out.println("ERROR, EL TIPO DE DATO NO COINCIDE CON SU CONTENIDO");
+                    PilaError.push(new nodoError(String.valueOf(clinea),"EL TIPO DE DATO NO COINCIDE CON SU CONTENIDO" , "0"));
                 }
             }
 
@@ -93,6 +112,8 @@ public class erVariables {
                     b5 = true;
                 }else{
                     System.out.println("ERROR, FALTO AGREGAR EL DELIMITADOR");
+                    PilaError.push(new nodoError(String.valueOf(clinea),"FALTO AGREGAR EL DELIMITADOR" , "0"));
+                    
                 }
             }
 
@@ -105,9 +126,21 @@ public class erVariables {
 
             if(b1 && b2 && b3 && b4 && b5){
                 t.variables.add(linea[1]);
+                int i = this.TblSimbolo.tamanio();
+                System.out.println("hola");
+                if(linea[0].equals("entero"))
+                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARENTERO 75 "+linea[1]+" "+linea[3]).split(" ")));
+                if(linea[0].equals("texto"))
+                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARTEXTO 76 "+linea[1]+" "+linea[3]).split(" ")));
+                if(linea[0].equals("booleano")){
+                    System.out.println("sdfsd");
+                    this.TblSimbolo.m_agreSimbolo(new simbolo(("VARBOOLEANO 77 "+linea[1]+" "+linea[3]).split(" ")));
+                }
+                
                 System.out.println("VARIABLE DECLARADA");
             }else{
                 System.out.println("NO FUE POSIBLE DECLARAR LA VARIABLE");
+                PilaError.push(new nodoError(String.valueOf(clinea),"NO FUE POSIBLE DECLARAR LA VARIABLE" , "0"));
             }
             System.out.println("Variables: "+t.variables);
         
@@ -115,6 +148,7 @@ public class erVariables {
             // Variables ya declaradas
         }*/else{
             System.out.println("ERROR, LA ER NO CUMPLE CON LOS COMPONENTES MINIMOS NECESARIOS");
+            PilaError.push(new nodoError(String.valueOf(clinea),"LA ER NO CUMPLE CON LOS COMPONENTES MINIMOS NECESARIOS" , "0"));
         }
     }
 }

@@ -2,13 +2,7 @@ package analizadores.lexico;
 import java.util.ArrayList;
 import java.util.List;
 
-public class lexemas {
-  
-  /*String[] operAritmeticos = {"+", "-", "*", "/", "%"};
-  String[] operlogicos = {"&&", "||", "!"};
-  String[] operComparativos = {"==", "!=", ">","<",">=", "<="};
-  String[] operAsignacion={"="};*/
-    
+public class lexemas {    
    String[] getLexemas(String linea){
     List<String> listLexemas = new ArrayList<String>();
     String[] auxiliar = linea.split(" ");
