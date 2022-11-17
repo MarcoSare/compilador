@@ -9,6 +9,7 @@ import java.io.*;
 import java.awt.event.*;
 
 import javax.swing.filechooser.*;
+import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 
 import analizadores.lexico.alfabeto;
@@ -189,10 +190,12 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         //sp.setBounds(10,50,400,300);
         //add(sp);
 
+        ta2.setEditable(false);
         ta2.setFont(font);
         ta2.setForeground(Color.BLACK); // Letra
         ta2.setBackground(Color.BLACK); // Fondo
-        JScrollPane spr = new JScrollPane(ta2); // Scroll del editor
+        JScrollPane spr = new JScrollPane(ta2);
+        spr.setMinimumSize(new DimensionUIResource(WIDTH, 300));// Scroll del editor
         //spr.setBounds(10,50,400,300);
         add(spr);
        
@@ -287,19 +290,19 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }*/
                 if(this.PilaError.estaVacia()){
                     ta2.setForeground(Color.GREEN);
-                    text = "EL programa se ejecuto sin errores";
+                    text = "EL programa se ejecuto sin errores\n\n\n";
                     ta2.setText(text);
                 } 
                 else{
                     System.out.println("fs");
                     text = "Errores en tiempo de compilación\n";      
-                    ta2.setForeground(Color.RED); 
+                    ta2.setForeground(Color.YELLOW); 
                 while(!PilaError.estaVacia()){
                     Object nodo = PilaError.pop();
                     String l = ((nodoError) nodo).getLinea();
                     String D = ((nodoError) nodo).getDescripcion();
                     String C = ((nodoError) nodo).getCodigo();
-                    text = "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
+                    text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
                 }
                 ta2.setText(text);
             }

@@ -58,12 +58,11 @@ public class token {
             return "PARENTESISAPERTURA,63,Parentesis apertura,"+lexema;
         if(lexema.equals(")"))
             return "PARENTESISCIERRE,64,Parentesis cierre,"+lexema;
-        
-        
-        
-            if(variables.contains(lexema))
+        if(variables.contains(lexema))
             return "VARIABLE,75,Variable,"+lexema;
-        
+        if(lexema.equals("//"))
+            return "COMENTARIO,80,Comentario,"+lexema;
+
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;

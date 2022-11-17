@@ -1,25 +1,23 @@
-principal {
+// Declaracion del bloque de codigo principal
+principal{
 
-entero a = ;
+// Declaracion de variables enteras 
+entero a = 3 ;
+entero b = 6 ;
+entero c = 2 ;
 
-si ( 5 >= 4 ) {
- entero si = 1 ;
-} sino {
- entero b x 0 ;
-}
+// Declaracion de variables booleanas
+booleano z = verdad ;
+booleano x = falso ;
 
-mientras ( ( "Hola" == "ola" ) && ( 5 < 10 ) ) {
- texto c = 3 ;
-}
+// Declaracion de variables de texto
+texto t = "Hola" ;
 
-hacer {
- texto d = "Aloh" x
-} mientras ( 5 > 4 ) ;
+// Declaracion de estructuras de desicion
+si (x)
+si (x || z&& a >=b)
+si (b>=c && x)
+si (a>b || a<=c)
 
-entero e = 1 ;
-texto f = "uwu" ;
-texto f = "xd" ;
-
-error
-
+// Cierre del bloque principal de codigo
 }

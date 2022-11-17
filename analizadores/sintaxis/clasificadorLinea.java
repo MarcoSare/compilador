@@ -1,5 +1,6 @@
 package analizadores.sintaxis;
 import analizadores.lexico.token;
+import errores.nodoError;
 import errores.pilaError;
 import tblSimbolos.tblSimbolo;
 
@@ -7,10 +8,12 @@ import tblSimbolos.tblSimbolo;
  * Clasifica el codigo por lineas
 */
 public class clasificadorLinea {
+
     String[] codigo;
     token t;
     tblSimbolo TblSimbolo; 
     pilaError PilaError;
+
     public clasificadorLinea(String[] lineas, token tk, tblSimbolo TblSimbolo, pilaError PilaError){
         codigo = lineas;
         t = tk;
@@ -45,12 +48,15 @@ public class clasificadorLinea {
                     erv.valiER();
                 }else if(datos[0].equals("}")){
 
+                }else if(datos[0].equals("//")){ // Cometarios
+                    erComentarios erc = new erComentarios(TblSimbolo, linea, this.PilaError,i);
+                    erc.valiER();
                 }else{
                     // Validar si es una variable declarada
+                    PilaError.push(new nodoError(String.valueOf(i),"Error token no reconocido" , "10"));
                 }
             }
             i++;
-            
         }
     } 
     // Toma de parametro una cadena y la devuelve como un arrelo String separado por espacios

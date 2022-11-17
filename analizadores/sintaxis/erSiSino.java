@@ -26,6 +26,7 @@ public class erSiSino {
     pilaError PilaError;
     boolean estatus=false;
     int linea, beginIndex;
+    
     public erSiSino(tblSimbolo TblSimbolo, String cadena, pilaError PilaError, int linea){
         this.TblSimbolo = TblSimbolo;
         this.cadena = cadena;
@@ -54,7 +55,7 @@ public class erSiSino {
             ErBooleana = new erBooleana(this.TblSimbolo, expBool, this.PilaError, linea);
             if(ErBooleana.start())
                 System.out.println("chido");
-                else System.out.println("no chido");
+            else System.out.println("no chido");
         }
 
     }
