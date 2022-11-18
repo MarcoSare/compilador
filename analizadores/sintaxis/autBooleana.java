@@ -1,6 +1,7 @@
 package analizadores.sintaxis;
 
 public class autBooleana {
+    
     String cadena;
     int position = 0;
     boolean acept = false;

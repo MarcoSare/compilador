@@ -452,26 +452,26 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         
         text = "<html>"+
                "<body>" +
-               "    <div>"+
-               "        <div style='display: flex; align-items: center; justify-content: center; margin-left: 70px'>" +
+               "    <div style='text-align: center;'>"+
+               "        <div style='display: flex; align-items: center; justify-content: center;'>" +
                "            <img width='100' height='100' src='https://sg.com.mx/sites/default/files/2018-04/LogoITCelaya.png'/>" +
                "        </div>" +
-               "        <div style='display: flex; align-items: center; justify-content: center; margin-top: 10px;'>" +
+               "        <div style='display: flex; align-items: center; justify-content: center; margin-top: 5px;'>" +
                "            <label>~ Tecnológico Nacional de México en Celaya ~</label> <br>" +
                "            <label> Lenguajes y Automatas ll</label> <br><br>" +
-               "            <label> VERSION: 1.00</label> <br><br>" +
+               "            <label> VERSION: 1.00</label> <br>" +
                "            <label style=\"font-family: 'Roboto Medium', sans-serif; font-size:20px;\"> EQUIPO 3 </label> <br>" +
                "            <label> INTEGRANTES: </label> <br>" +
                "        </div>" +
-               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/QQvY9Rq/Foto-Cromo.jpg' style='margin-left: 70px;'/> <br>" +
                "                <label>- Garcia Ramirez Luis David </label>" +
                "        </div>" +
-               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/fFvSMh2/Foto-Edu.png'/> <br>" +
                "                <label>- Perez Cabrera Jose Eduardo </label>" +
                "        </div>" +
-               "        <div class='container' style='margin-top: 20px; margin-left:20px;'>" +
+               "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/2vfvztF/Foto-Marco.jpg'/> <br>" +
                "                <label>- Ramirez Garcia Marco Isaias </label>" +
                "        </div>" +
@@ -479,7 +479,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                "</body></html> ";
 
         JDialog modal = new JDialog(frame, titulo, Dialog.ModalityType.DOCUMENT_MODAL);
-        modal.setBounds(0,0,300,300);
+        modal.setBounds(0,0,340,550);
         modal.setLocationRelativeTo(frame);
 
         Container container = modal.getContentPane();

@@ -7,6 +7,7 @@ import tblSimbolos.tblSimbolo;
 /*
  * Clasifica el codigo por lineas
 */
+
 public class clasificadorLinea {
 
     String[] codigo;
@@ -21,6 +22,7 @@ public class clasificadorLinea {
         this.PilaError = PilaError;
     }
     public void analisisSintactico(){
+        boolean bloque = false, otro = false;
         int i=1;
         for (String linea : codigo) {
             linea = linea.trim();
@@ -31,13 +33,10 @@ public class clasificadorLinea {
                     System.out.println("    -> "+dato);
                 }*/
                 if(datos[0].equals("principal{")){
-
-                }else if(datos[0].equals("si")){
+                    bloque = true;
+                }else if(datos[0].equals("si") || datos[0].equals("sino")){
                     erSiSino e = new erSiSino(TblSimbolo, linea, this.PilaError,i);
                     e.start();
-                }else if(datos[0].equals("sino")){
-                  
-
                 }else if(datos[0].equals("mientras")){
 
                 }else if(datos[0].equals("hacer")){
@@ -47,12 +46,14 @@ public class clasificadorLinea {
                     erVariables erv = new erVariables(datos, t, this.TblSimbolo, this.PilaError, i);
                     erv.valiER();
                 }else if(datos[0].equals("}")){
-
+                    if(bloque){
+                        if(!otro){
+                            System.out.println("Bloque principal correcto");
+                        }
+                    }
                 }else if(datos[0].equals("//")){ // Cometarios
-                    erComentarios erc = new erComentarios(TblSimbolo, linea, this.PilaError,i);
-                    erc.valiER();
+                    // *NO HACE NADA* 
                 }else{
-                    // Validar si es una variable declarada
                     PilaError.push(new nodoError(String.valueOf(i),"Error token no reconocido" , "10"));
                 }
             }

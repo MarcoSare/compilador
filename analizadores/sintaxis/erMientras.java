@@ -1,4 +1,5 @@
 package analizadores.sintaxis;
+
 /* Automata:
      * mientras
      * (
@@ -8,6 +9,7 @@ package analizadores.sintaxis;
      *  CONTENIDO
      * } Delimitador Cierre
 */
+
 public class erMientras {
 
     public erMientras(){
