@@ -24,9 +24,9 @@ import tblSimbolos.tblSimbolo;
 public class IntMain extends JFrame implements ActionListener { // Extension de Interfaz y Eventos
 
     // Declaracion de Atributos para la interfaz
-    String imagen1 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
-    String imagen2 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
-    String imagen3 = "https://th.bing.com/th/id/R.6c1205ef983f3ae43dc3ad71e94b23c5?rik=yhL%2fStFGJZVpIw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-circle-transparent-png%2fred-circle-transparent-png-18.png&ehk=2WkjtpoRuX%2fx9P%2bnVjh6gALkF3Kn0j74KpKPdcORfSs%3d&risl=&pid=ImgRaw&r=0";
+    String rojo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f534.png";
+    String amarillo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e1.png";
+    String verde = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e2.png";
     JFrame frame = new JFrame("Chat Frame");
     JTextField tf = new JTextField(20); // Longitud de 20 caracteres
     JButton compilar = new JButton("Compilar");
@@ -39,9 +39,9 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JTable tabla = new JTable(modelT); 
     JLabel imaSemaforo1 = new JLabel("<html> "+
                                     "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
                                     "   </div>" +
                                     "   <div style='margin-left: 20;'>" +
                                     "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
@@ -292,9 +292,29 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     ta2.setForeground(Color.GREEN);
                     text = "EL programa se ejecuto sin errores\n\n\n";
                     ta2.setText(text);
+                    imaSemaforo1.setText("<html> "+
+                    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/>" +
+                    "   </div>" +
+                    "   <div style='margin-left: 20;'>" +
+                    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                    "   </div>" +
+                    "</html>");
                 } 
                 else{
                     System.out.println("fs");
+                    imaSemaforo1.setText("<html> "+
+                    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+                    "   </div>" +
+                    "   <div style='margin-left: 20;'>" +
+                    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                    "   </div>" +
+                    "</html>");
                     text = "Errores en tiempo de compilación\n";      
                     ta2.setForeground(Color.YELLOW); 
                 while(!PilaError.estaVacia()){
@@ -303,6 +323,29 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     String D = ((nodoError) nodo).getDescripcion();
                     String C = ((nodoError) nodo).getCodigo();
                     text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
+                    if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 10)){
+                        imaSemaforo1.setText("<html> "+
+                        "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+                        "   </div>" +
+                        "   <div style='margin-left: 20;'>" +
+                        "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                        "   </div>" +
+                        "</html>");
+                    }else  if((Integer.parseInt(C) >= 10) && (Integer.parseInt(C) < 20)){
+                        imaSemaforo1.setText("<html> "+
+                        "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                        "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/>" +
+                        "   </div>" +
+                        "   <div style='margin-left: 20;'>" +
+                        "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                        "   </div>" +
+                        "</html>");
+                    }
                 }
                 ta2.setText(text);
             }
@@ -310,18 +353,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 //ta2.setText(text);
                 limpiar();
                 Object[] r = mostrarTabla();
-
-                imagen1 = "https://th.bing.com/th/id/R.672973e14528fca605459c9959a1db29?rik=wZ%2bSWb5s6ddlKg&riu=http%3a%2f%2fs3.e-monsite.com%2f2010%2f10%2f05%2f07%2fresize_550_550%2fboule-verte.png&ehk=h%2brvvJQva%2bJ2vH2XJxHKplf%2by%2bGvSBjW%2f%2fCKWWn37K4%3d&risl=&pid=ImgRaw&r=0";
-                imaSemaforo1.setText("<html> "+
-                "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
-                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen1 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen2 +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                "       <img style='margin-left: 15;' width='20' height='20' src='" + imagen3 +"'/>" +
-                "   </div>" +
-                "   <div style='margin-left: 20;'>" +
-                "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
-                "   </div>" +
-                "</html>");
 
             }
             else 
