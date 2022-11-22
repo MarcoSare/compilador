@@ -1,17 +1,17 @@
-package errores;
+package analizadores.sintaxis;
 
 import java.util.Stack;
 
-public class pilaError {
+public class pilaBloques {
 
     Stack pila;
-    
-    public pilaError(){
+
+    public pilaBloques(){
         pila = new Stack<>();
     }
-   
-    public void push(nodoError nodo){
-        pila.push(nodo);
+
+    public void push(nodoBloques metodo){
+        pila.push(metodo);
     }
 
     public Object pop(){
@@ -22,4 +22,8 @@ public class pilaError {
         return pila.isEmpty();
     }
 
+    int getLong(){
+        return pila.size();
+    }
+    
 }

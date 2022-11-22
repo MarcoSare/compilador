@@ -16,6 +16,8 @@ import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
 
 import analizadores.sintaxis.clasificadorLinea;
+import analizadores.sintaxis.pilaBloques;
+import analizadores.sintaxis.consola;
 import errores.nodoError;
 import errores.pilaError;
 import tblSimbolos.simbolo;
@@ -27,6 +29,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     String rojo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f534.png";
     String amarillo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e1.png";
     String verde = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e2.png";
+    clasificadorLinea cl;
+    consola consola = new consola();    
     JFrame frame = new JFrame("Chat Frame");
     JTextField tf = new JTextField(20); // Longitud de 20 caracteres
     JButton compilar = new JButton("Compilar");
@@ -75,6 +79,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     tblSimbolo tablaSimbolos = new tblSimbolo();
     pilaError PilaError = new pilaError();
+    pilaBloques PilaBloques = new pilaBloques();
 
     String url = ""; //URL para cuando se abra un archivo
     
@@ -244,6 +249,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         //System.out.println(texto);
                         full += texto+"\n"; // Concatena cada linea y agrega un salto
                     }
+                    contenido.close();
                     ta.setText(full);
                 } catch (Exception ex) {
                     // TODO: handle exception
@@ -254,6 +260,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         // Boton de compilar
         } else if(click == compilar || click == menuItem12){
             this.PilaError = new pilaError();
+            this.PilaBloques = new pilaBloques();
             this.tablaSimbolos = new tblSimbolo();
             System.out.println("Compilando...");
             alfabeto alfa = new alfabeto();
@@ -269,7 +276,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 //JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
                             
                 // CLASIFICADOR DE LINEAS
-                clasificadorLinea cl = new clasificadorLinea(lineas, t, this.tablaSimbolos, this.PilaError);
+                cl = new clasificadorLinea(lineas, t, this.tablaSimbolos, this.PilaError, PilaBloques, consola);
                 cl.analisisSintactico();
                 //System.out.println(t.variables);
                 
@@ -290,7 +297,8 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }*/
                 if(this.PilaError.estaVacia()){
                     ta2.setForeground(Color.GREEN);
-                    text = "EL programa se ejecuto sin errores\n\n\n";
+                    text = "EL programa se ejecuto sin errores"+consola.getConsola()+"\n";
+                    consola.vaciar();
                     ta2.setText(text);
                     imaSemaforo1.setText("<html> "+
                     "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
@@ -348,6 +356,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }
                 }
                 ta2.setText(text);
+                consola.vaciar();
             }
                     
                 //ta2.setText(text);

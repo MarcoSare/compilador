@@ -33,4 +33,15 @@ public class tblSimbolo {
     public void limpTabla(){
         simbolos = new ArrayList<>();
     }
+
+    public simbolo getSimboloToken(String p_nombre){
+        simbolo sim = null;
+        for(int i = 0; i < simbolos.size(); i++){
+            //System.out.println("Simbolos => "+simbolos.get(i).getDescripcion());
+            if(simbolos.get(i).getDescripcion().equals(p_nombre)){
+                sim = simbolos.get(i);
+            }
+        }
+        return sim;
+    }
 }

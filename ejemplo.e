@@ -1,23 +1,37 @@
-// Declaracion del bloque de codigo principal
-principal{
+// Bloque de codigo principal
+principal {
 
-// Declaracion de variables enteras 
-entero a = 3 ;
-entero b = 6 ;
-entero c = 2 ;
-
-// Declaracion de variables booleanas
-booleano z = verdad ;
-booleano x = falso ;
+// Declaracion de variables numericas
+entero a = 1 ;
+entero b = 10 ;
 
 // Declaracion de variables de texto
-texto t = "Hola" ;
+texto c = "Hola" ;
+texto d = "Mundo" ;
 
-// Declaracion de estructuras de desicion
-si (x)
-si (x || z&& a >=b)
-si (b>=c && x)
-si (a>b || a<=c)
+// Declaracion de variables booleanas
+booleano e = verdad ;
+booleano f = falso ;
 
-// Cierre del bloque principal de codigo
+// Declaracion de estructura de desicion
+si (a<=b||b>=a){
+}
+si (e&&f){
+}
+
+// Declaracion de estructura de iteracion
+mientras (a <= b || b >= a){
+}
+mientras (e && f){
+}
+
+// Imprimir datos en la consola
+imprimir a ;
+imprimir b ;
+imprimir c ;
+imprimir d ;
+imprimir e ;
+imprimir f ;
+
+// Llave de cierre del bloque principal
 }

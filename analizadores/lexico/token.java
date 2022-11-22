@@ -62,7 +62,8 @@ public class token {
             return "VARIABLE,75,Variable,"+lexema;
         if(lexema.equals("//"))
             return "COMENTARIO,80,Comentario,"+lexema;
-
+        if(lexema.equals("imprimir"))
+            return "IMPRIMIR,100,Imprimir,"+lexema;
         String buscToken = buscarToken(lexema);
         if(buscToken!=null)
             return buscToken;
@@ -97,7 +98,7 @@ public class token {
             return "NUMERO,71,Tipo de dato Numero,"+lexema;
         AutBooleana = new autBooleana(lexema);
         if(AutBooleana.start())
-        return "TDBOOLEANO,72,Tipo de dato booleano,"+lexema;
+            return "TDBOOLEANO,72,Tipo de dato booleano,"+lexema;
         return null;
     }
 
