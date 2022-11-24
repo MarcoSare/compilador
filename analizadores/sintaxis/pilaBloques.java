@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class pilaBloques {
 
-    Stack pila;
+    Stack pila = null;
 
     public pilaBloques(){
         pila = new Stack<>();

@@ -84,13 +84,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     
     // Inicializacion de la interfaz grafica
     public void initGui(){
-        lines = new JTextArea("1");
-        lines.setBackground(Color.LIGHT_GRAY);
-        tf.setEditable(false);
-        lines.setEditable(false);
-        ta2.setEditable(false);
-        abrirDoc(); // Abrir el archivo de ejemplo por default
-
         ta.getDocument().addDocumentListener(new DocumentListener() {
             public String getText() {
                int caretPosition = ta.getDocument().getLength();
@@ -113,7 +106,13 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             public void removeUpdate(DocumentEvent de) {
                lines.setText(getText());
             }
-         });
+        });
+        lines = new JTextArea("1");
+        lines.setBackground(Color.LIGHT_GRAY);
+        tf.setEditable(false);
+        lines.setEditable(false);
+        ta2.setEditable(false);
+        abrirDoc(); // Abrir el archivo de ejemplo por default
         modelT.addColumn("Id");
         modelT.addColumn("No. Token");
         modelT.addColumn("Token");
@@ -362,7 +361,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     
                 //ta2.setText(text);
                 limpiar();
-                Object[] r = mostrarTabla();
+                mostrarTabla();
 
             }
             else 
@@ -405,7 +404,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         modelT.removeRow(i);
                     }
                     tablaSimbolos.limpTabla();
-                    Object[] r = mostrarTabla();
+                    mostrarTabla();
                     createDialogLimpiado(frame, "la TABLA DE SIMBOLOS");
                 break;
                 default:
@@ -431,7 +430,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         modelT.removeRow(i);
                     }
                     tablaSimbolos.limpTabla();
-                    Object[] r = mostrarTabla();
+                    mostrarTabla();
                     ta2.setText("");
                     createDialogLimpiado(frame, "el COMPILADOR COMPLETO");
                 break;
@@ -469,13 +468,13 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     
     //Regresa e imprime la tabla de simbolos
     Object[] mostrarTabla(){
-        System.out.println("\nid      numToken         Token        Descripcion          valor");
-        System.out.println("---------------------------------------------------------");
+        //System.out.println("\nid      numToken         Token        Descripcion          valor");
+        //System.out.println("---------------------------------------------------------");
         Object[] r = new simbolo[tablaSimbolos.tamanio()];
         for(int i=0;tablaSimbolos.tamanio()>i;i++){
             simbolo row = tablaSimbolos.getSimbolo(i);
             modelT.addRow(new Object[]{(i+1),row.getId(),row.getToken(),row.getDescripcion(),row.getValor()});
-            System.out.println((i+1)+ "   "+row.getId()+"     "+ row.getToken()+"     "+row.getDescripcion()+"         "+row.getValor());
+            //System.out.println((i+1)+ "   "+row.getId()+"     "+ row.getToken()+"     "+row.getDescripcion()+"         "+row.getValor());
         }
         return r;
     }
@@ -590,7 +589,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         JFileChooser jF1 = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         String ruta = "";
         try{
-            if(jF1.showSaveDialog(null) == jF1.APPROVE_OPTION){
+            if(jF1.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
                 ruta = jF1.getSelectedFile().getAbsolutePath();
                 System.out.println("RUTA:" + ruta);
                 if(new File(ruta + ".txt").exists()){
@@ -633,6 +632,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             }
             contenido.close();
             ta.setText(full);
+            
         } catch (Exception ex) {
             // TODO: handle exception
             JOptionPane.showMessageDialog(null, ex.getCause(), "Exception", JOptionPane.PLAIN_MESSAGE);

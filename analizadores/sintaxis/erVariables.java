@@ -1,15 +1,17 @@
 package analizadores.sintaxis;
 
+import java.util.Arrays;
+
 import analizadores.lexico.token;
+import analizadores.sintaxis.Evaluaciones.evaluar;
 import errores.nodoError;
 import errores.pilaError;
 import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
 /*
-     * De 3 o 5 de longitud el arrreglo
      * [TipoDato, NombreVariable, Delimitador]
-     * [TipoDato, NombreVariable, SignoIgual, Contenido, Delimitador]
+     * [NombreVariable, SignoIgual, Contenido, Delimitador]
 */
 /* Sintaxis
      
@@ -29,27 +31,30 @@ import tblSimbolos.tblSimbolo;
 
 public class erVariables {
 
-    boolean q0 = false, q1 = false, q2 = false, q3 = false, q4 = false;
+    String[] lineas;
+    String linea;
+    token t;
     tblSimbolo TblSimbolo;
     pilaError PilaError;
-    String[] desctd;
-    String[] linea;
     int clinea;
-    token t;
+    boolean init;
+    boolean q0 = false, q1 = false, q2 = false, q3 = false, q4 = false;
+    String[] desctd;
 
-    public erVariables(String[] datos, token tk, tblSimbolo TblSimbolo, pilaError PilaError, int clinea){ // 4 o 5
-        linea = datos;
-        t = tk;
+    public erVariables(String[] lineas, String linea, token t, tblSimbolo TblSimbolo, pilaError PilaError, int clinea, boolean init){ // 4 o 5
+        this.lineas = lineas;
+        this.linea = linea;
+        this.t = t;
         this.TblSimbolo = TblSimbolo;
         this.PilaError = PilaError;
         this.clinea = clinea;
+        this.init = init;
     }
 
     public void valiER(){
-        System.out.println("");
-        if(linea.length == 5){
+        if(!init){
             // Tipo de dato
-            String td = t.getToken(linea[0]);
+            String td = t.getToken(lineas[0]);
             desctd =  td.split(",");
             int numt = Integer.parseInt(desctd[1]);
             if((numt > 10) && (numt < 15) ){
@@ -59,19 +64,17 @@ public class erVariables {
                 System.out.println("ERROR, NO SE RECONOCE EL TIPO DE DATO");
                 PilaError.push(new nodoError(String.valueOf(clinea),"NO SE RECONOCE EL TIPO DE DATO" , "0"));
             }
-
-        }/*else if(linea.length == 4){
+        }else if(init){
             // Variables ya declaradas
-        }*/else{
-            System.out.println("ERROR, LA ER NO CUMPLE CON LOS COMPONENTES MINIMOS NECESARIOS");
-            PilaError.push(new nodoError(String.valueOf(clinea),"LA ER NO CUMPLE CON LOS COMPONENTES MINIMOS NECESARIOS" , "0"));
+            //System.out.println("YA DECLARADA");
+            q5();
         }
     }
 
     void q0(){
         if(q0){
             // Nombre de la variable
-            String nv = t.getToken(linea[1]);
+            String nv = t.getToken(lineas[1]);
             String[] descnv = nv.split(",");
             if(descnv[2].equals("Token no especificado")){ // No es un token existente
                 q1 = true;
@@ -87,7 +90,7 @@ public class erVariables {
     void q1(){
         if(q0 && q1){
             // Signo de Igualacion
-            String si = t.getToken(linea[2]);
+            String si = t.getToken(lineas[2]);
             String[] descsi =  si.split(",");
             if(descsi[2].equals("Operador de asignación")){
                 q2 = true;
@@ -102,7 +105,7 @@ public class erVariables {
     void q2(){
         if(q0 && q1 && q2){
             // Contenido de la variable
-            String cv = t.getToken(linea[3]);
+            String cv = t.getToken(lineas[3]);
             String[] desccv =  cv.split(",");
             // ANALISIS SEMANTICO
             if(desctd[0].equals("ENTERO")){
@@ -126,7 +129,7 @@ public class erVariables {
     void q3(){
         if(q0 && q1 && q2 && q3){
             // Delimitador ;
-            String pc = t.getToken(linea[4]);
+            String pc = t.getToken(lineas[4]);
             String[] descpc =  pc.split(",");
             if(descpc[2].equals("Delimitador")){
                 q4 = true;
@@ -137,30 +140,59 @@ public class erVariables {
             }
         }
         System.out.println("------ ER Variable ------");
-        System.out.println("Tipo de dato : "+linea[0]+" -> "+q0);
-        System.out.println("Nombre       : "+linea[1]+" -> "+q1);
-        System.out.println("Asignacion   : "+linea[2]+" -> "+q2);
-        System.out.println("Contenido    : "+linea[3]+" -> "+q3);
-        System.out.println("Delimitador  : "+linea[4]+" -> "+q4); 
+        System.out.println("Tipo de dato : "+lineas[0]+" -> "+q0);
+        System.out.println("Nombre       : "+lineas[1]+" -> "+q1);
+        System.out.println("Asignacion   : "+lineas[2]+" -> "+q2);
+        System.out.println("Contenido    : "+lineas[3]+" -> "+q3);
+        System.out.println("Delimitador  : "+lineas[4]+" -> "+q4); 
     }
 
     void q4(){
         if(q0 && q1 && q2 && q3 && q4){
-            t.variables.add(linea[1]);
-            int i = this.TblSimbolo.tamanio();
+            t.variables.add(lineas[1]);
             System.out.println("hola");
-            if(linea[0].equals("entero"))
-                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARENTERO 75 "+linea[1]+" "+linea[3]).split(" ")));
-            if(linea[0].equals("texto"))
-                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARTEXTO 76 "+linea[1]+" "+linea[3]).split(" ")));
-            if(linea[0].equals("booleano"))
-                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARBOOLEANO 77 "+linea[1]+" "+linea[3]).split(" ")));
+            if(lineas[0].equals("entero"))
+                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARENTERO 75 "+lineas[1]+" "+lineas[3]).split(" ")));
+            if(lineas[0].equals("texto"))
+                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARTEXTO 76 "+lineas[1]+" "+lineas[3]).split(" ")));
+            if(lineas[0].equals("booleano"))
+                this.TblSimbolo.m_agreSimbolo(new simbolo(("VARBOOLEANO 77 "+lineas[1]+" "+lineas[3]).split(" ")));
             System.out.println("VARIABLE DECLARADA");
         }else{
             System.out.println("NO FUE POSIBLE DECLARAR LA VARIABLE");
             PilaError.push(new nodoError(String.valueOf(clinea),"NO FUE POSIBLE DECLARAR LA VARIABLE" , "0"));
         }
         System.out.println("Variables: "+t.variables);
+    }
+
+    void q5(){
+        String[] contenido = linea.trim().split("=");
+        String[] separado = contenido[1].trim().split("\\Q+\\E");
+        if(!lineas[1].equals("=")){
+            System.out.println("LA ASIGNACION DE LA VARIABLE NO CONTIENE SIMBOLO (=)");
+            PilaError.push(new nodoError(String.valueOf(clinea),"LA ASIGNACION DE LA VARIABLE NO CONTIENE SIMBOLO (=)" , "0"));
+        }else if(!lineas[lineas.length-1].equals(";")){
+            System.out.println("FALTA EL DELIMITADOR EN LA ASIGNACION DE LA VARIABLE");
+            PilaError.push(new nodoError(String.valueOf(clinea),"FALTA EL DELIMITADOR EN LA ASIGNACION DE LA VARIABLE" , "0"));
+        }else{
+            // Validar la expresion
+            //System.out.println("    Contenido -> "+Arrays.toString(contenido));
+            
+            if(TblSimbolo.getSimboloToken(lineas[0]).getToken().equals("VARENTERO")){
+                // Evaluar expresion infija
+                //System.out.println("Expresion INFIJA");
+                evaluar ev = new evaluar(lineas[2]);
+                String resultado = ""+ev.getResultado();
+                System.out.println("Resuuuu "+resultado);
+
+                // tipoSimbolo, id, descripcion, valor
+                String[] simbol = {"VARENTERO","75",lineas[0],resultado};
+                TblSimbolo.m_agreSimbolo(new simbolo(simbol));
+            }else{
+                System.out.println("Separado  -> "+Arrays.toString(separado));
+            }
+            
+        }
     }
 
 }

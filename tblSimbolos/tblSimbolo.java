@@ -25,11 +25,11 @@ public class tblSimbolo {
         simbolos = new ArrayList<>();
     }
 
-    public simbolo getSimboloToken(String p_nombre){
+    public simbolo getSimboloToken(String descripcion){
         simbolo sim = null;
         for(int i = 0; i < simbolos.size(); i++){
             //System.out.println("Simbolos => "+simbolos.get(i).getDescripcion());
-            if(simbolos.get(i).getDescripcion().equals(p_nombre)){
+            if(simbolos.get(i).getDescripcion().equals(descripcion)){
                 sim = simbolos.get(i);
             }
         }

@@ -39,6 +39,9 @@ public class clasificadorLinea {
                 /*for (String dato : datos) {
                     System.out.println("    -> "+dato);
                 }*/
+                //System.out.println("===> "+datos[0]);
+                String token = t.getToken(datos[0]);
+                String vars[] = token.split(",");
                 if(datos[0].equals("principal") && ultimo.equals("{")){
                     bloque = true;
                     PilaBloques.push(new nodoBloques("principal"));
@@ -47,13 +50,21 @@ public class clasificadorLinea {
                     ersi.start();
                     PilaBloques.push(new nodoBloques("si"));
                 }else if(datos[0].equals("mientras") && ultimo.equals("{")){
-                    erMientras erm = new erMientras();
+                    //erMientras erm = new erMientras();
                     PilaBloques.push(new nodoBloques("mientras"));
                 }else if(datos[0].equals("hacer") && ultimo.equals("{")){
                     PilaBloques.push(new nodoBloques("hacer"));
-                }else if((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano")) )){
-                    erVariables erv = new erVariables(datos, t, this.TblSimbolo, this.PilaError, i);
+                }else if ((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano"))) // Declaracion de variables
+                        || (vars[0].equals("VARIABLE"))){ // Validacion de variable ya declarada
+                    erVariables erv;    
+                    if((vars[0].equals("VARIABLE"))){ // Iniciazada
+                        erv = new erVariables(datos, linea, t, this.TblSimbolo, this.PilaError, i, true);
+                    }else{ // A declarar
+                        erv = new erVariables(datos, linea, t, this.TblSimbolo, this.PilaError, i, false);
+                    }
                     erv.valiER();
+                }else if (datos[0].equals("")){ // Variables ya declaradas
+                    System.out.println("¿Error?");
                 }else if(datos[0].equals("}")){
                     if(PilaBloques.estaVacia()){
                         System.out.println("ERROR en las llaves");
