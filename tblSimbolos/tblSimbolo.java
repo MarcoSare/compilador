@@ -13,15 +13,6 @@ public class tblSimbolo {
         simbolos.add(p_simbolo);
     }
 
-    public boolean m_buscSimbolo(String p_nombre){
-        int v_cont;
-        for(v_cont = 0; v_cont < simbolos.size(); v_cont++){
-            if (simbolos.get(v_cont).nombre.equals(p_nombre))
-                return true;
-        }
-        return false;
-    }
-
     public simbolo getSimbolo(int posicion){
         return simbolos.get(posicion);
     }
@@ -44,4 +35,5 @@ public class tblSimbolo {
         }
         return sim;
     }
+
 }

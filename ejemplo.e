@@ -32,6 +32,9 @@ imprimir c ;
 imprimir d ;
 imprimir e ;
 imprimir f ;
+imprimir "Inicio -> "+c+" "+d+" <- Fin" ;
+imprimir "Hola "+d ;
+imprimir c+" Mundo" ;
 
 // Llave de cierre del bloque principal
 }

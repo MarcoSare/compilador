@@ -24,7 +24,8 @@ import tblSimbolos.simbolo;
 import tblSimbolos.tblSimbolo;
 
 public class IntMain extends JFrame implements ActionListener { // Extension de Interfaz y Eventos
-
+    //URL para cuando se abra un archivo
+    String url = "/home/dp/GitHub/compilador/ejemplo.e";;
     // Declaracion de Atributos para la interfaz
     String rojo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f534.png";
     String amarillo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e1.png";
@@ -32,7 +33,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     clasificadorLinea cl;
     consola consola = new consola();    
     JFrame frame = new JFrame("Chat Frame");
-    JTextField tf = new JTextField(20); // Longitud de 20 caracteres
+    JTextField tf = new JTextField(30); // Longitud de 30 caracteres
     JButton compilar = new JButton("Compilar");
     JButton buscar = new JButton("Buscar");
     JTextArea lines;
@@ -80,15 +81,15 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     tblSimbolo tablaSimbolos = new tblSimbolo();
     pilaError PilaError = new pilaError();
     pilaBloques PilaBloques = new pilaBloques();
-
-    String url = ""; //URL para cuando se abra un archivo
     
     // Inicializacion de la interfaz grafica
     public void initGui(){
         lines = new JTextArea("1");
         lines.setBackground(Color.LIGHT_GRAY);
+        tf.setEditable(false);
         lines.setEditable(false);
         ta2.setEditable(false);
+        abrirDoc(); // Abrir el archivo de ejemplo por default
 
         ta.getDocument().addDocumentListener(new DocumentListener() {
             public String getText() {
@@ -297,7 +298,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }*/
                 if(this.PilaError.estaVacia()){
                     ta2.setForeground(Color.GREEN);
-                    text = "EL programa se ejecuto sin errores"+consola.getConsola()+"\n";
+                    text = "El programa se ejecuto sin errores\n"+consola.getConsola()+"\n";
                     consola.vaciar();
                     ta2.setText(text);
                     imaSemaforo1.setText("<html> "+
@@ -325,39 +326,39 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     "</html>");
                     text = "Errores en tiempo de compilación\n";      
                     ta2.setForeground(Color.YELLOW); 
-                while(!PilaError.estaVacia()){
-                    Object nodo = PilaError.pop();
-                    String l = ((nodoError) nodo).getLinea();
-                    String D = ((nodoError) nodo).getDescripcion();
-                    String C = ((nodoError) nodo).getCodigo();
-                    text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
-                    if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 10)){
-                        imaSemaforo1.setText("<html> "+
-                        "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
-                        "   </div>" +
-                        "   <div style='margin-left: 20;'>" +
-                        "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
-                        "   </div>" +
-                        "</html>");
-                    }else  if((Integer.parseInt(C) >= 10) && (Integer.parseInt(C) < 20)){
-                        imaSemaforo1.setText("<html> "+
-                        "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                        "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/>" +
-                        "   </div>" +
-                        "   <div style='margin-left: 20;'>" +
-                        "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
-                        "   </div>" +
-                        "</html>");
+                    while(!PilaError.estaVacia()){
+                        Object nodo = PilaError.pop();
+                        String l = ((nodoError) nodo).getLinea();
+                        String D = ((nodoError) nodo).getDescripcion();
+                        String C = ((nodoError) nodo).getCodigo();
+                        text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
+                        if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 10)){
+                            imaSemaforo1.setText("<html> "+
+                            "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+                            "   </div>" +
+                            "   <div style='margin-left: 20;'>" +
+                            "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                            "   </div>" +
+                            "</html>");
+                        }else  if((Integer.parseInt(C) >= 10) && (Integer.parseInt(C) < 20)){
+                            imaSemaforo1.setText("<html> "+
+                            "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/>" +
+                            "   </div>" +
+                            "   <div style='margin-left: 20;'>" +
+                            "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                            "   </div>" +
+                            "</html>");
+                        }
                     }
+                    ta2.setText(text);
+                    consola.vaciar();
                 }
-                ta2.setText(text);
-                consola.vaciar();
-            }
                     
                 //ta2.setText(text);
                 limpiar();
@@ -614,6 +615,27 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             }
         }catch (Exception ex){
             ex.printStackTrace();
+        }
+    }
+
+    void abrirDoc(){
+        try {
+            String texto = "", full = "";
+            tf.setText(url); // Localizacion
+            // Creamos un archivo FileReader que obtiene lo que tenga el archivo
+            FileReader lector = new FileReader(url);
+            //El contenido de lector se guarda en un BufferedReader
+            BufferedReader contenido = new BufferedReader(lector);
+            //Con el siguiente ciclo extraemos todo el contenido del objeto "contenido" y lo mostramos
+            while((texto=contenido.readLine())!=null) { // Mediante saltos de linea
+                //System.out.println(texto);
+                full += texto+"\n"; // Concatena cada linea y agrega un salto
+            }
+            contenido.close();
+            ta.setText(full);
+        } catch (Exception ex) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(null, ex.getCause(), "Exception", JOptionPane.PLAIN_MESSAGE);
         }
     }
 

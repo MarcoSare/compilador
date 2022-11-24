@@ -33,7 +33,7 @@ public class clasificadorLinea {
             linea = linea.trim();
             if(!linea.equals("")){
                 String ultimo = linea.substring(linea.length()-1);
-                System.out.println("Ultimo -> "+ultimo);
+                //System.out.println("Ultimo -> "+ultimo);
                 //System.out.println("Linea: "+linea);
                 String[] datos = valiString(linea);
                 /*for (String dato : datos) {
@@ -52,7 +52,6 @@ public class clasificadorLinea {
                 }else if(datos[0].equals("hacer") && ultimo.equals("{")){
                     PilaBloques.push(new nodoBloques("hacer"));
                 }else if((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano")) )){
-                    System.out.println("xD");
                     erVariables erv = new erVariables(datos, t, this.TblSimbolo, this.PilaError, i);
                     erv.valiER();
                 }else if(datos[0].equals("}")){

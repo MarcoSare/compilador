@@ -43,7 +43,7 @@ public class erSiSino {
 
     void q0(){
         if(cadena.substring(0, 3).equals("si(")){
-            System.out.println("q1");
+            //System.out.println("q1");
             q1(getExpBool());
         }else
             PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis" , "0"));
@@ -51,13 +51,13 @@ public class erSiSino {
     void q1(String expBool){
         if(expBool== null){
             PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis falta el parentesis de cierre )" , "0"));
-            System.out.println("Error");
+            //System.out.println("Error");
         }else{
             ErBooleana = new erBooleana(this.TblSimbolo, expBool, this.PilaError, linea);
-            if(ErBooleana.start())
-                System.out.println("chido");
-            else 
-                System.out.println("no chido");
+            //if(ErBooleana.start())
+                //System.out.println("chido");
+            //else 
+                //System.out.println("no chido");
         }
     }
 
@@ -75,7 +75,7 @@ public class erSiSino {
     String getExpBool(){
         for(beginIndex=3;cadena.length()>beginIndex;beginIndex++)
         if(cadena.charAt(beginIndex)==')'){
-            System.out.println("c: " +cadena.substring(3, beginIndex));
+            //System.out.println("c: " +cadena.substring(3, beginIndex));
             return cadena.substring(3, beginIndex);
         }/*else
             */
@@ -90,7 +90,7 @@ public class erSiSino {
             if(!e.equals(""))
                 cadena+=e; 
         }
-        System.out.println(cadena);
+        //System.out.println(cadena);
     }
     
 }
