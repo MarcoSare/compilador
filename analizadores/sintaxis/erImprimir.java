@@ -50,7 +50,7 @@ public class erImprimir {
             contenido = datos[i].trim().split(";");
             q1();
         }
-        System.out.println("CADENA -> "+cadena);
+        System.out.println("Imprimir -> "+cadena);
         consola.addConsola(cadena);
         /*
         String comillas = "\""; // comillas dobles

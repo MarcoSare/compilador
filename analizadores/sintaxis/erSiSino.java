@@ -41,19 +41,25 @@ public class erSiSino {
         return estatus;
     }
 
+    public boolean getResu(){
+        return ErBooleana.valiEB(cadena.substring(3, cadena.length()-2));
+    }
+
     void q0(){
         if(cadena.substring(0, 3).equals("si(")){
             //System.out.println("q1");
             q1(getExpBool());
         }else
-            PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis" , "0"));
+            PilaError.push(new nodoError(String.valueOf(linea),"Error de sintaxis" , "0"));
     }
+
     void q1(String expBool){
         if(expBool== null){
             PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis falta el parentesis de cierre )" , "0"));
             //System.out.println("Error");
         }else{
             ErBooleana = new erBooleana(this.TblSimbolo, expBool, this.PilaError, linea);
+            estatus = true;
             //if(ErBooleana.start())
                 //System.out.println("chido");
             //else 
@@ -74,13 +80,12 @@ public class erSiSino {
 
     String getExpBool(){
         for(beginIndex=3;cadena.length()>beginIndex;beginIndex++)
-        if(cadena.charAt(beginIndex)==')'){
-            //System.out.println("c: " +cadena.substring(3, beginIndex));
-            return cadena.substring(3, beginIndex);
+            if(cadena.charAt(beginIndex)==')'){
+                //System.out.println("c: " +cadena.substring(3, beginIndex));
+                return cadena.substring(3, beginIndex);
         }/*else
             */
         return null;
-        
     }
 
     void elimEspacios(){

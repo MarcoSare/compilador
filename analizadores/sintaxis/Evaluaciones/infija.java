@@ -9,7 +9,6 @@ public class infija {
     }
 
     public String getPostfija(){
-        ///////////////////////////////////////////////////////////
         String resultado = "";
 		//Depurar la expresion algebraica
 		String expr = depurar(expInfija);

@@ -27,15 +27,15 @@ public class clasificadorLinea {
         this.consola = consola;
     }
     public void analisisSintactico(){
-        boolean bloque = false;
-        int i=1;
-        for (String linea : codigo) {
-            linea = linea.trim();
-            if(!linea.equals("")){
-                String ultimo = linea.substring(linea.length()-1);
+        boolean bloque = false, ban = true;
+        int i;
+        for (i = 0; i < codigo.length; i++) {
+            codigo[i] = codigo[i].trim();
+            if(!codigo[i].equals("")){
+                String ultimo = codigo[i].substring(codigo[i].length()-1);
                 //System.out.println("Ultimo -> "+ultimo);
-                //System.out.println("Linea: "+linea);
-                String[] datos = valiString(linea);
+                //System.out.println("Linea: "+codigo[i]);
+                String[] datos = valiString(codigo[i]);
                 /*for (String dato : datos) {
                     System.out.println("    -> "+dato);
                 }*/
@@ -44,33 +44,75 @@ public class clasificadorLinea {
                 String vars[] = token.split(",");
                 if(datos[0].equals("principal") && ultimo.equals("{")){
                     bloque = true;
-                    PilaBloques.push(new nodoBloques("principal"));
+                    PilaBloques.pila.push("principal");
                 }else if((datos[0].equals("si") || datos[0].equals("sino")) && ultimo.equals("{")){
-                    erSiSino ersi = new erSiSino(TblSimbolo, linea, this.PilaError,i);
-                    ersi.start();
-                    PilaBloques.push(new nodoBloques("si"));
-                }else if(datos[0].equals("mientras") && ultimo.equals("{")){
-                    //erMientras erm = new erMientras();
-                    PilaBloques.push(new nodoBloques("mientras"));
-                }else if(datos[0].equals("hacer") && ultimo.equals("{")){
-                    PilaBloques.push(new nodoBloques("hacer"));
-                }else if ((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano"))) // Declaracion de variables
-                        || (vars[0].equals("VARIABLE"))){ // Validacion de variable ya declarada
-                    erVariables erv;    
-                    if((vars[0].equals("VARIABLE"))){ // Iniciazada
-                        erv = new erVariables(datos, linea, t, this.TblSimbolo, this.PilaError, i, true);
-                    }else{ // A declarar
-                        erv = new erVariables(datos, linea, t, this.TblSimbolo, this.PilaError, i, false);
+                    if(ban){
+                        erSiSino ersi = new erSiSino(TblSimbolo, codigo[i], this.PilaError, i);
+                        if(ersi.start()){ // Sintaxis correcta
+                            System.out.println("RESUUUUU SI"+ersi.getResu());
+                            ban = ersi.getResu();
+                        }else{
+                            System.out.println("INCORRECTAAAAAAA");
+                        }
+                        PilaBloques.pila.push("si");
+                    }else{
+                        System.out.println("CONDICION FALSA si "+i);
                     }
-                    erv.valiER();
+                }else if(datos[0].equals("mientras") && ultimo.equals("{")){
+                    if(ban){
+                        erMientras erm = new erMientras(TblSimbolo, codigo[i], this.PilaError, i);
+                        PilaBloques.pila.push("mientras "+i);
+                        if(erm.start()){ // Sintaxis correcta
+                            System.out.println("RESUUUUU MMMM -> "+erm.getResu());
+                            ban = erm.getResu();
+                        }else{
+                            System.out.println("INCORRECTAAAAAAA");
+                        }
+                    }else{
+                        System.out.println("CONDICION FALSA mientras "+i);
+                    }
+                }else if(datos[0].equals("hacer") && ultimo.equals("{")){
+                    if(ban){
+                        PilaBloques.pila.push("hacer");
+                    }else{
+                        System.out.println("CONDICION FALSA hacer "+i);
+                    }
+                }else if ((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano"))) // Declaracion de variables
+                || (vars[0].equals("VARIABLE"))){ // Validacion de variable ya declarada
+                    if(ban){
+                        erVariables erv;    
+                        if((vars[0].equals("VARIABLE"))){ // Iniciazada
+                            erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, true);
+                        }else{ // A declarar
+                            erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, false);
+                        }
+                        erv.valiER();
+                    }else{
+                        System.out.println("CONDICION FALSA var "+i);
+                    }
                 }else if (datos[0].equals("")){ // Variables ya declaradas
                     System.out.println("¿Error?");
-                }else if(datos[0].equals("}")){
+                }else if(datos[0].equals("}")){ // Cierre de bloque
                     if(PilaBloques.estaVacia()){
                         System.out.println("ERROR en las llaves");
                         PilaError.push(new nodoError(String.valueOf(i),"Error falto cerrar un bloque de codigo" , "20"));
                     }else{
-                        PilaBloques.pop();
+                        System.out.println("PILA Bloques ->"+PilaBloques.pila);
+                        System.out.println("Ult Bloq -> "+PilaBloques.pila.get(PilaBloques.pila.size()-1));
+                        if(PilaBloques.pila.get(PilaBloques.pila.size()-1).equals("si")){
+                            if(!ban){
+                                ban = true;
+                            }
+                        }else if(PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(0, 8).equals("mientras")){
+                            if(ban){
+                                System.out.println("Si era mientras "+i);
+                                System.out.println("Volver a la linea "+PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(9));
+                                i = Integer.parseInt(PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(9))-1;
+                            }else{
+                                ban = true;
+                            }
+                        }
+                        PilaBloques.pila.pop();
                         if(bloque){
                             System.out.println("Bloque correcto");
                         }
@@ -78,13 +120,16 @@ public class clasificadorLinea {
                 }else if(datos[0].equals("//")){ // Cometarios
                     // *NO HACE NADA* 
                 }else if(datos[0].equals("imprimir")){ // Cometarios
-                    erImprimir eri = new erImprimir(TblSimbolo, linea, this.PilaError,i,consola);
-                    eri.valiER();
+                    if(ban){
+                        erImprimir eri = new erImprimir(TblSimbolo, codigo[i], this.PilaError,i+1,consola);
+                        eri.valiER();
+                    }else{
+                        System.out.println("CONDICION FALSA imprimir "+i);
+                    }
                 }else{
                     PilaError.push(new nodoError(String.valueOf(i),"Error token no reconocido" , "10"));
                 }
             }
-            i++;
         }
         System.out.println("Pila Bloques -> "+PilaBloques.getLong());
         if(!bloque){

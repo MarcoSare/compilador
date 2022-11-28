@@ -181,7 +181,7 @@ public class erVariables {
             if(TblSimbolo.getSimboloToken(lineas[0]).getToken().equals("VARENTERO")){
                 // Evaluar expresion infija
                 //System.out.println("Expresion INFIJA");
-                evaluar ev = new evaluar(lineas[2]);
+                evaluar ev = new evaluar(lineas[2],TblSimbolo);
                 String resultado = ""+ev.getResultado();
                 System.out.println("Resuuuu "+resultado);
 

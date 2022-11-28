@@ -4,18 +4,10 @@ import java.util.Stack;
 
 public class pilaBloques {
 
-    Stack pila = null;
+    Stack<String> pila = null;
 
     public pilaBloques(){
-        pila = new Stack<>();
-    }
-
-    public void push(nodoBloques metodo){
-        pila.push(metodo);
-    }
-
-    public Object pop(){
-       return pila.pop();
+        pila = new Stack<String>();
     }
 
     public boolean estaVacia(){

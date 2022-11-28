@@ -11,37 +11,49 @@ texto d = "Mundo" ;
 
 // Declaracion de variables booleanas
 booleano e = verdad ;
-booleano f = falso ;
-
-// Declaracion de estructura de desicion
-si (a<=b||b>=a){
-}
-si (e&&f){
-}
-
-// Declaracion de estructura de iteracion
-mientras (a <= b || b >= a){
-}
-mientras (e && f){
-}
+booleano faa = falso ;
 
 // Imprimir datos en la consola
-imprimir "> Inicio, "+c+" "+d+", Fin <" ;
 imprimir "> Todas las variables declaradas <" ;
-imprimir a+" "+b+" "+c+" "+d+" "+e+" "+f;
+imprimir a+" "+b+" "+c+" "+d+" "+e+" "+faa;
 imprimir "a: "+a ;
 imprimir "b: "+b ;
 imprimir "c: "+c ;
 imprimir "d: "+d ;
 imprimir "e: "+e ;
-imprimir "f: "+f ;
+imprimir "f: "+faa ;
 
 // Validacion y reasignacion de expresiones enteras
 imprimir "> Actualizacion de las variables <" ;
-a = 2*(23+6)-1 ;
-b = 2*23+6-1 ;
+a = b*(23+6)-1 ;
+b = 2*23+a-1 ;
 imprimir "a: "+a ;
 imprimir "b: "+b ;
+
+
+// Declaracion de estructura de desicion
+imprimir "> Estructuras de desicion <" ;
+si (a<b||b>=a){
+imprimir "Condicion 1" ;
+}
+si (e&&faa){
+imprimir "Condicion 2" ;
+}
+si (a <= b || b > a){
+imprimir "Condicion 3" ;
+}
+si (e && faa && a<b){
+imprimir "Condicion 4" ;
+}
+
+// Declaracion de estructura de iteracion
+imprimir "> Estructuras de iteracion <" ;
+entero cont = 0 ;
+entero fin = 5 ;
+mientras (fin > cont){
+cont = cont+1 ;
+imprimir "Cont: "+cont ;
+}
 
 // Llave de cierre del bloque principal
 }
