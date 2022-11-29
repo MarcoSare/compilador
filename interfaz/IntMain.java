@@ -3,18 +3,14 @@ package interfaz;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.Element;
-
 import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
-
 import javax.swing.filechooser.*;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
-
 import analizadores.lexico.alfabeto;
 import analizadores.lexico.token;
-
 import analizadores.sintaxis.clasificadorLinea;
 import analizadores.sintaxis.pilaBloques;
 import analizadores.sintaxis.consola;
@@ -42,45 +38,39 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JTextArea ta2 = new JTextArea();
     DefaultTableModel modelT = new DefaultTableModel(); 
     JTable tabla = new JTable(modelT); 
-    JLabel imaSemaforo1 = new JLabel("<html> "+
-                                    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
-                                    "   </div>" +
-                                    "   <div style='margin-left: 20;'>" +
-                                    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
-                                    "   </div>" +
-                                    "</html>");
-
     JMenuBar menuBar = new JMenuBar(); //Barra superior del menu
     JMenu menu1 = new JMenu("Archivo");
     JMenu menu2 = new JMenu("Compilador");
     JMenu menu3 = new JMenu("Ayuda");
     JMenu menu4 = new JMenu("Acerca de");
-    
     //Creacion de submenus
     JMenuItem menuItem11 = new JMenuItem("Abrir");
     JMenuItem menuItem12 = new JMenuItem("Compilar");
     JMenuItem menuItem13 = new JMenuItem("Guardar");
     JMenuItem menuItem14 = new JMenuItem("Guardar como");
     JMenuItem menuItem15 = new JMenuItem("Eliminar");
-
     JMenuItem menuItem21 = new JMenuItem("Limpiar editor de texto");
     JMenuItem menuItem22 = new JMenuItem("Limpiar tabla de simbolos");
     JMenuItem menuItem23 = new JMenuItem("Limpiar consola");
     JMenuItem menuItem24 = new JMenuItem("Limpiar todo");
-
     JMenuItem menuItem31 = new JMenuItem("Análisis léxico y sintáctico");
     JMenuItem menuItem32 = new JMenuItem("Análisis sintáctico");
     JMenuItem menuItem33 = new JMenuItem("Análisis semantico");
-
     JMenuItem menuItem41 = new JMenuItem("Acerca de");
-
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     tblSimbolo tablaSimbolos = new tblSimbolo();
     pilaError PilaError = new pilaError();
     pilaBloques PilaBloques = new pilaBloques();
+    JLabel imaSemaforo1 = new JLabel("<html> "+
+    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+    "   </div>" +
+    "   <div style='margin-left: 20;'>" +
+    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+    "   </div>" +
+    "</html>");
     
     // Inicializacion de la interfaz grafica
     public void initGui(){
@@ -118,57 +108,45 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         modelT.addColumn("Token");
         modelT.addColumn("Descripcion");
         modelT.addColumn("Valor");
-
         ta2.setText("\n \n \n");
         // Configuracion del Frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Pantalla Completa
         frame.setSize(800, 500);
         frame.setLocationRelativeTo(null); // Pantalla centrada
-
         // Agregacion de componentes a los menus
         menuBar.add(menu1);
         menuBar.add(menu2);
         menuBar.add(menu3);
         menuBar.add(menu4);
-
         menu1.add(menuItem11);
         menu1.add(menuItem12);
         menu1.add(menuItem13);
         menu1.add(menuItem14);
         menu1.add(menuItem15);
-
         menu2.add(menuItem21);
         menu2.add(menuItem22);
         menu2.add(menuItem23);
         menu2.add(menuItem24);
-
         menu3.add(menuItem31);
         menu3.add(menuItem32);
         menu3.add(menuItem33);
-
         menu4.add(menuItem41);
-
         menuItem11.addActionListener(this);
         menuItem12.addActionListener(this);
         menuItem13.addActionListener(this);
         menuItem14.addActionListener(this);
         menuItem15.addActionListener(this);
-
         menuItem21.addActionListener(this);
         menuItem22.addActionListener(this);
         menuItem23.addActionListener(this);
         menuItem24.addActionListener(this);
-
         menuItem31.addActionListener(this);
         menuItem32.addActionListener(this);
         menuItem33.addActionListener(this);
-
         menuItem41.addActionListener(this);
-
         //Agregacion del menu al frame
         frame.setJMenuBar(menuBar);
-        
         // Creacion del Panel
         JLabel label = new JLabel("Seleccionar codigo fuente ");
         panel.add(label); // Components Added using Flow Layout
@@ -176,7 +154,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         panel.add(buscar);
         panel.add(compilar);
         panel.add(imaSemaforo1);
-
         // Configuracion del editor de texto
         // Configuracion del editor de texto
         Font font = new Font("Monospaced", Font.BOLD, 17);
@@ -185,16 +162,10 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         ta.setForeground(Color.CYAN); // Letra
         ta.setBackground(Color.BLACK); // Fondo
         ta.setCaretColor(Color.WHITE);
-
         jsp.getViewport().add(ta);
         jsp.setRowHeaderView(lines);
         jsp.setBounds(10,50,400,300);
         add(jsp);
-        
-        //JScrollPane sp = new JScrollPane(ta); // Scroll del editor
-        //sp.setBounds(10,50,400,300);
-        //add(sp);
-
         ta2.setEditable(false);
         ta2.setFont(font);
         ta2.setForeground(Color.BLACK); // Letra
@@ -203,27 +174,22 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         spr.setMinimumSize(new DimensionUIResource(WIDTH, 300));// Scroll del editor
         //spr.setBounds(10,50,400,300);
         add(spr);
-       
         // Se agregan los componentes al Frame en la posicion adecuada
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         //frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.CENTER, jsp);
         frame.getContentPane().add(BorderLayout.SOUTH, spr);
         frame.getContentPane().add(BorderLayout.WEST,new JScrollPane(tabla));
-
         // Acciones de click para los botones
         compilar.addActionListener(this);
         buscar.addActionListener(this);
-
         frame.setVisible(true); // Se muestra la ventana
     }
 
     // Acciones para los botones
     @Override public void actionPerformed(ActionEvent e) { 
-        
         // Control de Eventos (clicks del usuario)
         Object click = e.getSource();
-
         // Interfaz de la ventana desplegable para seleccionar un archivo
         if (click == buscar || click == menuItem11) {
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -232,7 +198,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto plano", "txt", "e");
             jfc.addChoosableFileFilter(filter);
             int returnValue = jfc.showOpenDialog(null);
-
             // Cuando seleccionamos un archivo correcto
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 //System.out.println(jfc.getSelectedFile().getPath());
@@ -252,7 +217,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     contenido.close();
                     ta.setText(full);
                 } catch (Exception ex) {
-                    // TODO: handle exception
                     JOptionPane.showMessageDialog(null, ex.getCause(), "Exception", JOptionPane.PLAIN_MESSAGE);
                 }
             }
@@ -273,19 +237,15 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                bandAlf=false;
             if(bandAlf){
                 token t = new token();
-                //JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
-                            
+                //JOptionPane.showMessageDialog(null, "Análisis Léxico...", "Compilando", JOptionPane.PLAIN_MESSAGE);         
                 // CLASIFICADOR DE LINEAS
                 cl = new clasificadorLinea(lineas, t, this.tablaSimbolos, this.PilaError, PilaBloques, consola);
                 cl.analisisSintactico();
                 //System.out.println(t.variables);
-                
                 //JOptionPane.showMessageDialog(null, "Análisis Sintáctico...", "Compilando", JOptionPane.PLAIN_MESSAGE);
-                
                 // Tabla de Simbolos
                 String text ="";
-                /* 
-                    for(int i=0;lineas.length>i;i++){
+                /*  for(int i=0;lineas.length>i;i++){
                         String[] s = t.getListTokens(lineas[i]);
                         text +=(i+1)+": ";
                         for(int j=0;s.length>j;j++){
@@ -310,6 +270,20 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
                     "   </div>" +
                     "</html>");
+                    /* 
+                    //Parametros asociados a la ventana
+                    JFrame con = new JFrame();
+                    con.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    con.setSize(800, 500);
+                    con.setTitle("Consola");
+                    //Creamos el panel y lo añadimos a las pestañas
+                    JPanel panel1=new JPanel();
+                    //Componentes del panel1
+                    //panel1.add(lbl);
+                    panel1.add(ta2);
+                    con.add(panel1);
+                    con.setVisible(true);
+                    */
                 } 
                 else{
                     System.out.println("fs");
@@ -357,7 +331,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                             imaSemaforo1.setText("<html> "+
                             "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
                             "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                            "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
                             "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/>" +
                             "   </div>" +
                             "   <div style='margin-left: 20;'>" +
@@ -369,11 +343,9 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     ta2.setText(text);
                     consola.vaciar();
                 }
-                    
                 //ta2.setText(text);
                 limpiar();
                 mostrarTabla();
-
             }
             else 
                 ta2.setText("Caracteres indefidos linea: " + li);
@@ -474,7 +446,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             JDialog modelAcerca = createDialogAcerca(frame, panel);
             modelAcerca.setVisible(true);
         }
-
     }
     
     //Regresa e imprime la tabla de simbolos
@@ -500,7 +471,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     private static JDialog createDialogAcerca(JFrame frame, JPanel panel){
         String titulo, text;
         titulo = "Acerca de";
-        
         text = "<html>"+
                "<body>" +
                "    <div style='text-align: center;'>"+
@@ -528,19 +498,15 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                "        </div>" +
                "    </div>" +
                "</body></html> ";
-
         JDialog modal = new JDialog(frame, titulo, Dialog.ModalityType.DOCUMENT_MODAL);
         modal.setBounds(0,0,340,550);
         modal.setLocationRelativeTo(frame);
-
         Container container = modal.getContentPane();
         container.setLayout(new BorderLayout());
         container.add(new JLabel(text));
-
         JScrollPane scrollPane = new JScrollPane();
         modal.getContentPane().add(scrollPane, BorderLayout.CENTER);
         scrollPane.setViewportView(new JLabel(text));
-
         return modal;
     }
 
@@ -643,7 +609,6 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             }
             contenido.close();
             ta.setText(full);
-            
         } catch (Exception ex) {
             // TODO: handle exception
             JOptionPane.showMessageDialog(null, ex.getCause(), "Exception", JOptionPane.PLAIN_MESSAGE);

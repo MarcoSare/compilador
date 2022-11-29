@@ -143,7 +143,6 @@ public class erBooleana {
                 beginIndex += 2;
                 return true;
             }
-
             else
                 return false;
         } catch (Exception e) {
@@ -165,10 +164,8 @@ public class erBooleana {
                     beginIndex += 1;
                     return true;
                 }
-
             }
             return false;
-
         } catch (Exception e) {
             System.out.println("ex: " + e);
             return false;
@@ -247,18 +244,14 @@ public class erBooleana {
         // Expresiones logicas
         //int cont=0;
         while(aux.size()>1){
-
             if(valiExpLog(aux.get(0), aux.get(1), aux.get(2))){
                 System.out.println("ITERACION");
                 aux.set(2, getExpLog(aux.get(0), aux.get(1), aux.get(2))+"");
                 aux.remove(0);
                 aux.remove(0);
             }
-
         }
-        
         System.out.println("! BAN => "+aux.get(0));
-        
         if(aux.get(0).equals("true")){
             return true;
         }else{
@@ -300,6 +293,7 @@ public class erBooleana {
         }
         return res;
     }
+
     boolean valiExpLog(String varIzq, String simbolo, String varDer){
         if((varIzq.equals("true") || varIzq.equals("false") || TblSimbolo.getSimboloToken(varIzq).getToken().equals("VARBOOLEANO")) &&
            (varDer.equals("true") || varDer.equals("false") || TblSimbolo.getSimboloToken(varDer).getToken().equals("VARBOOLEANO"))){
@@ -314,6 +308,7 @@ public class erBooleana {
 
     boolean getExpLog(String varIzq, String simbolo, String varDer){
         boolean izq = false, der = false;
+        // Clasificacion de lado izquierdo de la expresion
         if(varIzq.equals("true")){
             izq = true;
         }else if(varIzq.equals("false")){
@@ -332,7 +327,7 @@ public class erBooleana {
             PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (izq)" , "311"));
             System.out.println("ERROR SEMANTICOOOoOo 3");
         }
-
+        // Clasificacion de lado derecho de la expresion
         if(varDer.equals("true")){
             der = true;
         }else if(varDer.equals("false")){
@@ -351,7 +346,7 @@ public class erBooleana {
             PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (der)" , "313"));
                 System.out.println("ERROR SEMANTICOOOoOo 5");
         }
-
+        // Clasificacion de simbolos de comparacion
         if(simbolo.equals("&&")){
             if(izq && der){
                 return true;
