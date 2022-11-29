@@ -347,8 +347,20 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 limpiar();
                 mostrarTabla();
             }
-            else 
-                ta2.setText("Caracteres indefidos linea: " + li);
+            else{
+                imaSemaforo1.setText("<html> "+
+                    "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                    "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+                    "   </div>" +
+                    "   <div style='margin-left: 20;'>" +
+                    "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                    "   </div>" +
+                    "</html>");
+                ta2.setForeground(Color.YELLOW); 
+                ta2.setText("linea: "+li+" Descripción: Error de lexico, el token no esta declarado en el alfabeto Codigo del error: 0");
+            }
         } else if(click == menuItem13){
             guardarArchivo();
         } else if(click == menuItem14){
