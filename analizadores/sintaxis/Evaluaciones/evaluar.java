@@ -3,8 +3,10 @@ package analizadores.sintaxis.Evaluaciones;
 import tblSimbolos.tblSimbolo;
 
 public class evaluar {
+
     String expresion;
     tblSimbolo TblSimbolo;
+    
     public evaluar(String expresion, tblSimbolo TblSimbolo){
         this.expresion = expresion;
         this.TblSimbolo = TblSimbolo;
@@ -48,7 +50,7 @@ public class evaluar {
                     cadena += dato;
                 }
             }
-            System.out.println("---> "+exp);
+            //System.out.println("---> "+exp);
         }
         return exp;
         /*String[] exp = expresion.split("[-/*+()]");

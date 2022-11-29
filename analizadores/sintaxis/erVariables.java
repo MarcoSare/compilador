@@ -62,12 +62,17 @@ public class erVariables {
                 q0();
             }else{
                 System.out.println("ERROR, NO SE RECONOCE EL TIPO DE DATO");
-                PilaError.push(new nodoError(String.valueOf(clinea),"NO SE RECONOCE EL TIPO DE DATO" , "0"));
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error semantico, no se reconoce el tipo de dato" , "303"));
             }
         }else if(init){
             // Variables ya declaradas
             //System.out.println("YA DECLARADA");
-            q5();
+            try {
+                q5();
+            } catch (Exception e) {
+                System.out.println("ERROR SEMANTICOOOO 777");
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de semantica en la expresion "+linea , "304"));
+            }
         }
     }
 
@@ -82,7 +87,7 @@ public class erVariables {
                 //System.out.println(t.variables);
             }else{
                 System.out.println("ERROR, LA VARIABLE A DECLARAR YA ES UNA PALABRA RESERVADA");
-                PilaError.push(new nodoError(String.valueOf(clinea),"LA VARIABLE A DECLARAR YA ES UNA PALABRA RESERVADA" , "0"));
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error semantico, la variable a deraclarar ya es una palabra reservada" , "305"));
             }
         }
     }
@@ -97,7 +102,7 @@ public class erVariables {
                 q2();
             }else{
                 System.out.println("ERROR, NO SE AGREGO EL SIMBOLO DE ASIGNACION");
-                PilaError.push(new nodoError(String.valueOf(clinea),"NO SE AGREGO EL SIMBOLO DE ASIGNACION" , "0"));
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error sintactico, no se agrego el simbolo de asignacion" , "113"));
             }
         }
     }
@@ -120,7 +125,7 @@ public class erVariables {
             }
             if(!q3){
                 System.out.println("ERROR, EL TIPO DE DATO NO COINCIDE CON SU CONTENIDO");
-                PilaError.push(new nodoError(String.valueOf(clinea),"EL TIPO DE DATO NO COINCIDE CON SU CONTENIDO" , "0"));
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de semantica, el tipo de dato no coincide con su contenido" , "306"));
             }else
                 q3();
         } 
@@ -136,7 +141,7 @@ public class erVariables {
                 q4();
             }else{
                 System.out.println("ERROR, FALTO AGREGAR EL DELIMITADOR");
-                PilaError.push(new nodoError(String.valueOf(clinea),"FALTO AGREGAR EL DELIMITADOR" , "0"));
+                PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de sintaxis, falto agregar el delimitador" , "114"));
             }
         }
         System.out.println("------ ER Variable ------");
@@ -160,7 +165,7 @@ public class erVariables {
             System.out.println("VARIABLE DECLARADA");
         }else{
             System.out.println("NO FUE POSIBLE DECLARAR LA VARIABLE");
-            PilaError.push(new nodoError(String.valueOf(clinea),"NO FUE POSIBLE DECLARAR LA VARIABLE" , "0"));
+            PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de semantica, no pudo ser declarada la variable" , "307"));
         }
         System.out.println("Variables: "+t.variables);
     }
@@ -170,10 +175,10 @@ public class erVariables {
         String[] separado = contenido[1].trim().split("\\Q+\\E");
         if(!lineas[1].equals("=")){
             System.out.println("LA ASIGNACION DE LA VARIABLE NO CONTIENE SIMBOLO (=)");
-            PilaError.push(new nodoError(String.valueOf(clinea),"LA ASIGNACION DE LA VARIABLE NO CONTIENE SIMBOLO (=)" , "0"));
+            PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de semantica, la variable a declarar no cuenta con el simbolo de asignacion" , "308"));
         }else if(!lineas[lineas.length-1].equals(";")){
             System.out.println("FALTA EL DELIMITADOR EN LA ASIGNACION DE LA VARIABLE");
-            PilaError.push(new nodoError(String.valueOf(clinea),"FALTA EL DELIMITADOR EN LA ASIGNACION DE LA VARIABLE" , "0"));
+            PilaError.push(new nodoError(String.valueOf(clinea+1),"Error de sintaxis, falto el delimitador en la asignacion de la variable" , "115"));
         }else{
             // Validar la expresion
             //System.out.println("    Contenido -> "+Arrays.toString(contenido));

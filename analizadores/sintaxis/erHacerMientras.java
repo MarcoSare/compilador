@@ -7,7 +7,7 @@ package analizadores.sintaxis;
      * } Delimitador Cierre
      * mientras
      * (
-     *  DECISION (Expresion[es] Booleana[s])
+     *  decision (Expresion[es] Booleana[s])
      * )
      * ; (Delimitador Cierre)
 */

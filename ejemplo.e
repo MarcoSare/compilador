@@ -10,39 +10,38 @@ texto c = "Hola" ;
 texto d = "Mundo" ;
 
 // Declaracion de variables booleanas
-booleano e = verdad ;
-booleano faa = falso ;
+booleano ban = verdad ;
+booleano opc = falso ;
 
 // Imprimir datos en la consola
 imprimir "> Todas las variables declaradas <" ;
-imprimir a+" "+b+" "+c+" "+d+" "+e+" "+faa;
+imprimir "Variables -> ["+a+", "+b+", "+c+", "+d+", "+ban+", "+opc+"]";
 imprimir "a: "+a ;
 imprimir "b: "+b ;
 imprimir "c: "+c ;
 imprimir "d: "+d ;
-imprimir "e: "+e ;
-imprimir "f: "+faa ;
+imprimir "ban: "+ban ;
+imprimir "opc: "+opc ;
 
 // Validacion y reasignacion de expresiones enteras
 imprimir "> Actualizacion de las variables <" ;
 a = b*(23+6)-1 ;
 b = 2*23+a-1 ;
-imprimir "a: "+a ;
-imprimir "b: "+b ;
+imprimir "a = "+a ;
+imprimir "b = "+b ;
 
-
-// Declaracion de estructura de desicion
-imprimir "> Estructuras de desicion <" ;
+// Declaracion de estructura de decision
+imprimir "> Estructuras de decision <" ;
 si (a<b||b>=a){
 imprimir "Condicion 1" ;
 }
-si (e&&faa){
+si (ban&&opc){
 imprimir "Condicion 2" ;
 }
-si (a <= b || b > a){
+si (a <= b || b > a) {
 imprimir "Condicion 3" ;
 }
-si (e && faa && a<b){
+si (ban && opc && a<b){
 imprimir "Condicion 4" ;
 }
 

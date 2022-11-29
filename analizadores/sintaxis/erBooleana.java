@@ -44,32 +44,31 @@ public class erBooleana {
                 q2();
             } else {
                 estatus = false;
-                PilaError.push(new nodoError(String.valueOf(linea),
-                        "Error de sintaxis. Expresión booleana mal construida", "0"));
+                PilaError.push(new nodoError(String.valueOf(linea+1),
+                        "Error de sintaxis, expresión booleana mal construida", "104"));
             }
 
         }
     }
 
-    void q1() {
+    void q1(){
         if (beginIndex == cadena.length()) {
             qf();
         }
-
-        else {
-            if (isOpeLog()) {
+        else{
+            if(isOpeLog()){
                 q0();
-            } else {
-                PilaError.push(new nodoError(String.valueOf(linea), "Error de sintaxis. operador desconocido", "0"));
+            }else{
+                PilaError.push(new nodoError(String.valueOf(linea+1), "Error de sintaxis, operador desconocido", "105"));
             }
         }
     }
 
-    void q2() {
-        if (isOpeComp()) {
+    void q2(){
+        if (isOpeComp()){
             q3();
-        } else {
-            PilaError.push(new nodoError(String.valueOf(linea), "Error de sintaxis. operador desconocido", "0"));
+        }else{
+            PilaError.push(new nodoError(String.valueOf(linea+1), "Error de sintaxis, operador desconocido", "105"));
         }
     }
 
@@ -83,7 +82,7 @@ public class erBooleana {
             q1();
         } else
             PilaError.push(
-                    new nodoError(String.valueOf(linea), "Error de sintaxis. Expresión booleana mal construida", "0"));
+                    new nodoError(String.valueOf(linea+1), "Error de sintaxis, expresión booleana mal construida", "106"));
     }
 
     void qf() {
@@ -228,7 +227,8 @@ public class erBooleana {
                     System.out.println("ExpAri Valida");
                     aux.add(getExpAri(expresion.get(i-1), expresion.get(i), expresion.get(i+1))+"");
                 }else{
-                    System.out.println("ERROR SEMANTICOOOO");
+                    System.out.println("ERROR SEMANTICOOOO 1");
+                    PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion aritmetica" , "302"));
                 }
             // Expresiones logicas
             }else if(expresion.get(i).equals("&&")){
@@ -278,7 +278,7 @@ public class erBooleana {
     }
 
     boolean getExpAri(String varIzq, String simbolo, String varDer){
-        System.out.println("bueeeee");        
+        //System.out.println("bueeeee");        
         int vIzq = Integer.parseInt(TblSimbolo.getSimboloToken(varIzq).getValor());
         int vDer = Integer.parseInt(TblSimbolo.getSimboloToken(varDer).getValor());
         boolean res = false;
@@ -324,10 +324,10 @@ public class erBooleana {
             }else if(aux.equals("falso")){
                 izq = false;
             }else{
-                System.out.println("ERROR SEMANTICOOOoOo");
+                System.out.println("ERROR SEMANTICOOOoOo 2");
             }
         }else{
-            System.out.println("ERROR SEMANTICOOOoOo");
+            System.out.println("ERROR SEMANTICOOOoOo 3");
         }
 
         if(varDer.equals("true")){
@@ -341,10 +341,10 @@ public class erBooleana {
             }else if(aux.equals("falso")){
                 der = false;
             }else{
-                System.out.println("ERROR SEMANTICOOOoOo");
+                System.out.println("ERROR SEMANTICOOOoOo 4");
             }
         }else{
-            System.out.println("ERROR SEMANTICOOOoOo");
+            System.out.println("ERROR SEMANTICOOOoOo 5");
         }
 
         if(simbolo.equals("&&")){
@@ -360,7 +360,7 @@ public class erBooleana {
                 return false;
             }
         }else{
-            System.out.println("ERROR SINTACTICOOOO");
+            System.out.println("ERROR SINTACTICOOOO 6");
             return false;
         }
     }

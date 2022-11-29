@@ -26,6 +26,8 @@ public class clasificadorLinea {
         this.PilaBloques = PilaBloques;
         this.consola = consola;
     }
+
+    // Evaluacion de cada linea de codigo de manera singular
     public void analisisSintactico(){
         boolean bloque = false, ban = true;
         int i;
@@ -49,8 +51,13 @@ public class clasificadorLinea {
                     if(ban){
                         erSiSino ersi = new erSiSino(TblSimbolo, codigo[i], this.PilaError, i);
                         if(ersi.start()){ // Sintaxis correcta
-                            System.out.println("RESUUUUU SI"+ersi.getResu());
-                            ban = ersi.getResu();
+                            try {
+                                System.out.println("RESUUUUU SI"+ersi.getResu());
+                                ban = ersi.getResu();
+                            } catch (Exception e) {
+                                System.out.println("ERROR SEMANTICOOOO 1");
+                                PilaError.push(new nodoError(String.valueOf(i+1),"Error de semantica en la expresion booleana si" , "300"));
+                            }
                         }else{
                             System.out.println("INCORRECTAAAAAAA");
                         }
@@ -63,8 +70,14 @@ public class clasificadorLinea {
                         erMientras erm = new erMientras(TblSimbolo, codigo[i], this.PilaError, i);
                         PilaBloques.pila.push("mientras "+i);
                         if(erm.start()){ // Sintaxis correcta
-                            System.out.println("RESUUUUU MMMM -> "+erm.getResu());
-                            ban = erm.getResu();
+                            try {
+                                System.out.println("RESUUUUU MMMM -> "+erm.getResu());
+                                ban = erm.getResu();
+                            } catch (Exception e) {
+                                System.out.println("ERROR SEMANTICOOOO 2");
+                                PilaError.push(new nodoError(String.valueOf(i+1),"Error de semantica en la expresion booleana mientras " , "301"));
+                                ban = false;
+                            }
                         }else{
                             System.out.println("INCORRECTAAAAAAA");
                         }
@@ -80,13 +93,18 @@ public class clasificadorLinea {
                 }else if ((datos[0].equals("entero") || (datos[0].equals("texto")) || (datos[0].equals("booleano"))) // Declaracion de variables
                 || (vars[0].equals("VARIABLE"))){ // Validacion de variable ya declarada
                     if(ban){
-                        erVariables erv;    
-                        if((vars[0].equals("VARIABLE"))){ // Iniciazada
-                            erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, true);
-                        }else{ // A declarar
-                            erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, false);
+                        try {
+                            erVariables erv;    
+                            if((vars[0].equals("VARIABLE"))){ // Iniciazada
+                                erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, true);
+                            }else{ // A declarar
+                                erv = new erVariables(datos, codigo[i], t, this.TblSimbolo, this.PilaError, i, false);
+                            }
+                            erv.valiER();
+                        } catch (Exception e) {
+                            System.out.println("Error Sintactico");
+                            PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis al declarar el valor de la variable" , "116"));
                         }
-                        erv.valiER();
                     }else{
                         System.out.println("CONDICION FALSA var "+i);
                     }
@@ -95,7 +113,7 @@ public class clasificadorLinea {
                 }else if(datos[0].equals("}")){ // Cierre de bloque
                     if(PilaBloques.estaVacia()){
                         System.out.println("ERROR en las llaves");
-                        PilaError.push(new nodoError(String.valueOf(i),"Error falto cerrar un bloque de codigo" , "20"));
+                        PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis, falto cerrar un bloque de codigo" , "100"));
                     }else{
                         System.out.println("PILA Bloques ->"+PilaBloques.pila);
                         System.out.println("Ult Bloq -> "+PilaBloques.pila.get(PilaBloques.pila.size()-1));
@@ -127,18 +145,19 @@ public class clasificadorLinea {
                         System.out.println("CONDICION FALSA imprimir "+i);
                     }
                 }else{
-                    PilaError.push(new nodoError(String.valueOf(i),"Error token no reconocido" , "10"));
+                    PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis, token no reconocido" , "101"));
                 }
             }
         }
         System.out.println("Pila Bloques -> "+PilaBloques.getLong());
         if(!bloque){
-            PilaError.push(new nodoError(String.valueOf(i),"Error falto el bloque de codigo principal" , "21"));
+            PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis, falto el bloque de codigo principal" , "102"));
         }
         if(!PilaBloques.estaVacia()){
-            PilaError.push(new nodoError(String.valueOf(i),"Error falto cerrar un bloque de codigo" , "20"));
+            PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis, falto cerrar un bloque de codigo" , "103"));
         }
     } 
+
     // Toma de parametro una cadena y la devuelve como un arrelo String separado por espacios
     String[] valiString(String p_dato) {
         String[] v_datos = null;

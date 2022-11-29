@@ -7,7 +7,7 @@ import tblSimbolos.tblSimbolo;
 /* Automata:
     * si
     * (
-    *  DECISION (Expresion[es] Booleana[s])
+    *  decision (Expresion[es] Booleana[s])
     * )
     * { (Delimitador Apertura)
     *  CONTENIDO 
@@ -50,12 +50,12 @@ public class erSiSino {
             //System.out.println("q1");
             q1(getExpBool());
         }else
-            PilaError.push(new nodoError(String.valueOf(linea),"Error de sintaxis" , "0"));
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de sintaxis en la estructura si" , "111"));
     }
 
     void q1(String expBool){
         if(expBool== null){
-            PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis falta el parentesis de cierre )" , "0"));
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error se sintaxis, falta el parentesis de cierre" , "112"));
             //System.out.println("Error");
         }else{
             ErBooleana = new erBooleana(this.TblSimbolo, expBool, this.PilaError, linea);
@@ -65,17 +65,6 @@ public class erSiSino {
             //else 
                 //System.out.println("no chido");
         }
-    }
-
-    void q2(){
-        if(cadena.charAt(beginIndex+=1)==')')
-            q3();
-        else
-            PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis falta el parentesis de cierre )" , "0"));
-    }
-
-    void q3(){
-        estatus = true;
     }
 
     String getExpBool(){

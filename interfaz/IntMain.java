@@ -331,7 +331,18 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         String D = ((nodoError) nodo).getDescripcion();
                         String C = ((nodoError) nodo).getCodigo();
                         text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
-                        if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 10)){
+                        if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 100)){
+                            imaSemaforo1.setText("<html> "+
+                            "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/>" +
+                            "   </div>" +
+                            "   <div style='margin-left: 20;'>" +
+                            "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
+                            "   </div>" +
+                            "</html>");
+                        }else if((Integer.parseInt(C) >= 100) && (Integer.parseInt(C) < 200)){
                             imaSemaforo1.setText("<html> "+
                             "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
                             "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
@@ -342,11 +353,11 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                             "       <pre>ANL-LE   ANL-SI   ANL-SE</pre>" +
                             "   </div>" +
                             "</html>");
-                        }else  if((Integer.parseInt(C) >= 10) && (Integer.parseInt(C) < 20)){
+                        }else if((Integer.parseInt(C) >= 300) && (Integer.parseInt(C) < 400)){
                             imaSemaforo1.setText("<html> "+
                             "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
                             "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
-                            "       <img style='margin-left: 15;' width='20' height='20' src='" + verde +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
+                            "       <img style='margin-left: 15;' width='20' height='20' src='" + rojo +"'/><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>" +
                             "       <img style='margin-left: 15;' width='20' height='20' src='" + amarillo +"'/>" +
                             "   </div>" +
                             "   <div style='margin-left: 20;'>" +

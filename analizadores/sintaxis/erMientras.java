@@ -7,7 +7,7 @@ import tblSimbolos.tblSimbolo;
 /* Automata:
      * mientras
      * (
-     *  DECISION (Expresion[es] Booleana[s])
+     *  decision (Expresion[es] Booleana[s])
      * )
      * { Delimitador Apertura
      *  CONTENIDO
@@ -45,13 +45,13 @@ public class erMientras {
             //System.out.println("q1");
             q1(getExpBool());
         }else
-            PilaError.push(new nodoError(String.valueOf(linea),"Error de sintaxis" , "0"));
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de sintaxis en la estructura mientras" , "109"));
     
     }
 
     void q1(String expBool){
         if(expBool== null){
-            PilaError.push(new nodoError(String.valueOf(linea),"Error se sintaxis falta el parentesis de cierre )" , "0"));
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error se sintaxis, falta el parentesis de cierre" , "110"));
             //System.out.println("Error");
         }else{
             ErBooleana = new erBooleana(this.TblSimbolo, expBool, this.PilaError, linea);
