@@ -307,6 +307,7 @@ public class erBooleana {
             return true;
         }else{
             System.out.println("FFFFFFFFF");
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica" , "309"));
             return false;
         }
     }
@@ -324,9 +325,11 @@ public class erBooleana {
             }else if(aux.equals("falso")){
                 izq = false;
             }else{
+                PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (izq)" , "310"));
                 System.out.println("ERROR SEMANTICOOOoOo 2");
             }
         }else{
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (izq)" , "311"));
             System.out.println("ERROR SEMANTICOOOoOo 3");
         }
 
@@ -341,10 +344,12 @@ public class erBooleana {
             }else if(aux.equals("falso")){
                 der = false;
             }else{
+                PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (der)" , "312"));
                 System.out.println("ERROR SEMANTICOOOoOo 4");
             }
         }else{
-            System.out.println("ERROR SEMANTICOOOoOo 5");
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de semantica en la expresion logica (der)" , "313"));
+                System.out.println("ERROR SEMANTICOOOoOo 5");
         }
 
         if(simbolo.equals("&&")){
@@ -360,6 +365,7 @@ public class erBooleana {
                 return false;
             }
         }else{
+            PilaError.push(new nodoError(String.valueOf(linea+1),"Error de sintaxis en la estructura de la expresion logica" , "314"));
             System.out.println("ERROR SINTACTICOOOO 6");
             return false;
         }

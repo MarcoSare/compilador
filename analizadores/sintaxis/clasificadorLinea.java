@@ -125,7 +125,11 @@ public class clasificadorLinea {
                             if(ban){
                                 System.out.println("Si era mientras "+i);
                                 System.out.println("Volver a la linea "+PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(9));
-                                i = Integer.parseInt(PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(9))-1;
+                                if(PilaError.estaVacia()){
+                                    i = Integer.parseInt(PilaBloques.pila.get(PilaBloques.pila.size()-1).substring(9))-1;
+                                }else{
+                                    PilaError.push(new nodoError(String.valueOf(i+1),"Error de sintaxis en el bloque del ciclo" , "117"));
+                                }
                             }else{
                                 ban = true;
                             }
