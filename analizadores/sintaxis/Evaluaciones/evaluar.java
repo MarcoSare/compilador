@@ -13,7 +13,7 @@ public class evaluar {
     }
 
     public int getResultado(){
-        System.out.println("Expresion -> "+expresion);
+        System.out.println("Expresión -> "+expresion);
         expresion = getVariables();
         infija inf = new infija(expresion);
         String expPostfija = inf.getPostfija();

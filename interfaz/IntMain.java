@@ -21,7 +21,7 @@ import tblSimbolos.tblSimbolo;
 
 public class IntMain extends JFrame implements ActionListener { // Extension de Interfaz y Eventos
     //URL para cuando se abra un archivo
-    String url = "/home/dp/GitHub/compilador/ejemplo.e";;
+    String url = "";;
     // Declaracion de Atributos para la interfaz
     String rojo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f534.png";
     String amarillo = "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f7e1.png";
@@ -50,12 +50,13 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     JMenuItem menuItem14 = new JMenuItem("Guardar como");
     JMenuItem menuItem15 = new JMenuItem("Eliminar");
     JMenuItem menuItem21 = new JMenuItem("Limpiar editor de texto");
-    JMenuItem menuItem22 = new JMenuItem("Limpiar tabla de simbolos");
+    JMenuItem menuItem22 = new JMenuItem("Limpiar tabla de símbolos");
     JMenuItem menuItem23 = new JMenuItem("Limpiar consola");
     JMenuItem menuItem24 = new JMenuItem("Limpiar todo");
     JMenuItem menuItem31 = new JMenuItem("Análisis léxico y sintáctico");
     JMenuItem menuItem32 = new JMenuItem("Análisis sintáctico");
-    JMenuItem menuItem33 = new JMenuItem("Análisis semantico");
+    JMenuItem menuItem33 = new JMenuItem("Análisis semántico");
+    JMenuItem menuItem34 = new JMenuItem("Documentación compilador");
     JMenuItem menuItem41 = new JMenuItem("Acerca de");
     JPanel panel = new JPanel(); // Opciones de compilacion desde archivos
     tblSimbolo tablaSimbolos = new tblSimbolo();
@@ -102,11 +103,11 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         tf.setEditable(false);
         lines.setEditable(false);
         ta2.setEditable(false);
-        abrirDoc(); // Abrir el archivo de ejemplo por default
+        //abrirDoc(); // Abrir el archivo de ejemplo por default
         modelT.addColumn("Id");
         modelT.addColumn("No. Token");
         modelT.addColumn("Token");
-        modelT.addColumn("Descripcion");
+        modelT.addColumn("Descripción");
         modelT.addColumn("Valor");
         ta2.setText("\n \n \n");
         // Configuracion del Frame
@@ -131,6 +132,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         menu3.add(menuItem31);
         menu3.add(menuItem32);
         menu3.add(menuItem33);
+        menu3.add(menuItem34);
         menu4.add(menuItem41);
         menuItem11.addActionListener(this);
         menuItem12.addActionListener(this);
@@ -144,11 +146,12 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         menuItem31.addActionListener(this);
         menuItem32.addActionListener(this);
         menuItem33.addActionListener(this);
+        menuItem34.addActionListener(this);
         menuItem41.addActionListener(this);
         //Agregacion del menu al frame
         frame.setJMenuBar(menuBar);
         // Creacion del Panel
-        JLabel label = new JLabel("Seleccionar codigo fuente ");
+        JLabel label = new JLabel("Seleccionar código fuente ");
         panel.add(label); // Components Added using Flow Layout
         panel.add(tf);
         panel.add(buscar);
@@ -193,7 +196,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
         // Interfaz de la ventana desplegable para seleccionar un archivo
         if (click == buscar || click == menuItem11) {
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-            jfc.setDialogTitle("Seleccionar codigo fuente");
+            jfc.setDialogTitle("Seleccionar código fuente");
             jfc.setAcceptAllFileFilterUsed(false); // Limitar extensiones de los archivos
             FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto plano", "txt", "e");
             jfc.addChoosableFileFilter(filter);
@@ -257,7 +260,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }*/
                 if(this.PilaError.estaVacia()){
                     ta2.setForeground(Color.GREEN);
-                    text = "El programa se ejecuto sin errores\n"+consola.getConsola()+"\n";
+                    text = "El programa se ejecutó sin errores\n"+consola.getConsola()+"\n";
                     consola.vaciar();
                     ta2.setText(text);
                     imaSemaforo1.setText("<html> "+
@@ -304,7 +307,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                         String l = ((nodoError) nodo).getLinea();
                         String D = ((nodoError) nodo).getDescripcion();
                         String C = ((nodoError) nodo).getCodigo();
-                        text += "linea: " + l + " Descripción: " + D + " Codigo del error: " + C+ "\n";
+                        text += "línea: " + l + " Descripción: " + D + " Código del error: " + C+ "\n";
                         if((Integer.parseInt(C) >= 0) && (Integer.parseInt(C) < 100)){
                             imaSemaforo1.setText("<html> "+
                             "   <div style='margin-left: 20;'><label>&nbsp;</label>" +
@@ -359,22 +362,36 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     "   </div>" +
                     "</html>");
                 ta2.setForeground(Color.YELLOW); 
-                ta2.setText("linea: "+li+" Descripción: Error de lexico, el token no esta declarado en el alfabeto Codigo del error: 0");
+                ta2.setText("línea: "+li+" Descripción: Error de léxico, el token no esta declarado en el alfabeto Código del error: 0");
             }
         } else if(click == menuItem13){
             guardarArchivo();
+            int tamanio = modelT.getRowCount();
+                    for(int i=tamanio-1;i>=0;i--){
+                        modelT.removeRow(i);
+                    }
+            tablaSimbolos.limpTabla();
+            mostrarTabla();
+            ta2.setText("");
         } else if(click == menuItem14){
             guardarComoArchivo();
+            int tamanio = modelT.getRowCount();
+                    for(int i=tamanio-1;i>=0;i--){
+                        modelT.removeRow(i);
+                    }
+            tablaSimbolos.limpTabla();
+            mostrarTabla();
+            ta2.setText("");
         } else if(click == menuItem15){
             if(!new File(url).exists()){
-                JOptionPane.showMessageDialog(null, "No se ha cargado ningun archivo para eliminar.", "Error eliminar", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No se ha cargado ningún archivo para eliminar.", "Error eliminar", JOptionPane.WARNING_MESSAGE);
             }else{
                 switch(createDialogEliminar(frame, url)){
                     case 0:
                         File file = new File(url);
                         System.out.println("URL:" + url);
                         file.delete();
-                        JOptionPane.showMessageDialog(null, "Se ha eliminado con exito el archivo " + url + ".", "Eliminado exitosao", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Se ha eliminado con éxito el archivo " + url + ".", "Eliminado exitoso", JOptionPane.INFORMATION_MESSAGE);
                     break;
                     default:
                         JOptionPane.showMessageDialog(null, "No se ha eliminado el archivo " + url + ".", "Eliminado incorrecto", JOptionPane.WARNING_MESSAGE);
@@ -392,7 +409,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                 break;
             }
         } else if(click == menuItem22){
-            switch(createDialogLimpiar(frame, "la TABLA DE SIMBOLOS")){
+            switch(createDialogLimpiar(frame, "la TABLA DE SÍMBOLOS")){
                 case 0:
                     int tamanio = modelT.getRowCount();
                     for(int i=tamanio-1;i>=0;i--){
@@ -400,10 +417,10 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                     }
                     tablaSimbolos.limpTabla();
                     mostrarTabla();
-                    createDialogLimpiado(frame, "la TABLA DE SIMBOLOS");
+                    createDialogLimpiado(frame, "la TABLA DE SÍMBOLOS");
                 break;
                 default:
-                    createDialogNoLimpiado(frame, "la TABLA DE SIMBOLOS");
+                    createDialogNoLimpiado(frame, "la TABLA DE SÍMBOLOS");
                 break;
             }
         } else if(click == menuItem23){
@@ -454,6 +471,13 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             }catch (IOException ex) {
                 ex.printStackTrace();
             }
+        } else if(click == menuItem34){
+            try {
+                File path = new File ("recursos/PDFs/Documentacion compilador.pdf");
+                Desktop.getDesktop().open(path);
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
         } else if(click == menuItem41){
             JDialog modelAcerca = createDialogAcerca(frame, panel);
             modelAcerca.setVisible(true);
@@ -491,22 +515,22 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
                "        </div>" +
                "        <div style='display: flex; align-items: center; justify-content: center; margin-top: 5px;'>" +
                "            <label>~ Tecnológico Nacional de México en Celaya ~</label> <br>" +
-               "            <label> Lenguajes y Automatas ll</label> <br><br>" +
-               "            <label> VERSION: 1.00</label> <br>" +
+               "            <label> Lenguajes y Autómatas ll</label> <br><br>" +
+               "            <label> VERSIÓN: 1.00</label> <br>" +
                "            <label style=\"font-family: 'Roboto Medium', sans-serif; font-size:20px;\"> EQUIPO 3 </label> <br>" +
                "            <label> INTEGRANTES: </label> <br>" +
                "        </div>" +
                "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/QQvY9Rq/Foto-Cromo.jpg' style='margin-left: 70px;'/> <br>" +
-               "                <label>- Garcia Ramirez Luis David </label>" +
+               "                <label>- García Ramírez Luis David </label>" +
                "        </div>" +
                "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/fFvSMh2/Foto-Edu.png'/> <br>" +
-               "                <label>- Perez Cabrera Jose Eduardo </label>" +
+               "                <label>- Pérez Cabrera José Eduardo </label>" +
                "        </div>" +
                "        <div class='container' style='margin-top: 5px;'>" +
                "                <img width='80' height='80' src='https://i.ibb.co/2vfvztF/Foto-Marco.jpg'/> <br>" +
-               "                <label>- Ramirez Garcia Marco Isaias </label>" +
+               "                <label>- Ramírez García Marco Isaías </label>" +
                "        </div>" +
                "    </div>" +
                "</body></html> ";
@@ -525,13 +549,13 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     //Creacion del dialog para confirmar limpiar
     private int createDialogLimpiar(JFrame frame, String p_areaLimpiar){
         int input;
-        input = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres limpiar " + p_areaLimpiar + "?", "Confirmacion para limpiar", JOptionPane.YES_NO_OPTION);
+        input = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres limpiar " + p_areaLimpiar + "?", "Confirmación para limpiar", JOptionPane.YES_NO_OPTION);
         return input;
     }
 
     //Creacion del dialog para confirmacion de que se limpio
     private void createDialogLimpiado(JFrame frame, String p_areaLimpiar){
-        JOptionPane.showMessageDialog(null, "Se ha limpiado con exito " + p_areaLimpiar + ".", "Limpieza exitosa", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha limpiado con éxito " + p_areaLimpiar + ".", "Limpieza exitosa", JOptionPane.INFORMATION_MESSAGE);
     }
 
     //Creacion del dialog para no limpiado
@@ -552,7 +576,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
     //Creacion del dialog para eliminar
     private int createDialogEliminar(JFrame frame, String p_archivo){
         int input;
-        input = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres eliminar el archivo " + p_archivo + "?", "Confirmacion para eliminar", JOptionPane.YES_NO_OPTION);
+        input = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres eliminar el archivo " + p_archivo + "?", "Confirmación para eliminar", JOptionPane.YES_NO_OPTION);
         return input;
     }
 
@@ -623,7 +647,7 @@ public class IntMain extends JFrame implements ActionListener { // Extension de 
             ta.setText(full);
         } catch (Exception ex) {
             // TODO: handle exception
-            JOptionPane.showMessageDialog(null, ex.getCause(), "Exception", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getCause(), "Excepción", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
